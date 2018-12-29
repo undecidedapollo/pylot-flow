@@ -2,9 +2,13 @@
 
 A collection of tools for creating lazy evaluated sequences.
 
-![build](https://gitlab.com/pylot-node/packages/flow/badges/master/build.svg)
+[![](https://img.shields.io/github/license/undecidedapollo/pylot-flow.svg)](https://gitlab.com/pylot-node/packages/flow)
+[![](https://img.shields.io/npm/v/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
 [![Coverage Status](https://coveralls.io/repos/github/undecidedapollo/pylot-flow/badge.svg?branch=master)](https://coveralls.io/github/undecidedapollo/pylot-flow?branch=master)
-
+[![](https://img.shields.io/david/undecidedapollo/pylot-flow.svg)](https://github.com/undecidedapollo/pylot-flow.git)
+![build](https://gitlab.com/pylot-node/packages/flow/badges/master/build.svg)
+[![](https://img.shields.io/bundlephobia/min/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
+[![](https://img.shields.io/bundlephobia/minzip/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
 
 ## Getting Started
 

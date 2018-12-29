@@ -4,7 +4,7 @@ const {
     hasOrIsIterator,
 } = require("../../shared");
 
-const standardPiper = require("../../runtime/standardPiper");
+const standardPiper = require("../../runtimes/standardPiper");
 
 function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
     function _getExternalIterator() {
@@ -25,7 +25,7 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
     }
 
     function pipe(...modifiers) {
-        return createFlow(piper(getIterFunc, modifiers));
+        return createFlow(piper(getIterFunc, ...modifiers));
     }
 
     function toArray() {

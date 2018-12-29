@@ -1,5 +1,7 @@
 describe("operators", function () {
-    require("./forEach");
     require("./filter");
+    require("./forEach");
     require("./map");
+    require("./skip");
+    require("./take");
 });

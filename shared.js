@@ -21,7 +21,7 @@ function checkIs(type, res, varName = "object", msg = `Expected ${varName} to be
 }
 
 function hasOrIsIterator(iter) {
-    if (Symbol.asyncIterator in iter || Symbol.iterator in iter) {
+    if ((Symbol.asyncIterator in iter) || (Symbol.iterator in iter)) {
         return true;
     }
 

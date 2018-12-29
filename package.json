@@ -39,7 +39,8 @@
       "**/*.js"
     ],
     "exclude": [
-      "test/"
+      "test/",
+      "build/"
     ],
     "reporter": [
       "lcov",

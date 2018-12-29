@@ -24,11 +24,12 @@ describe("multiFlow", function () {
         it("should return proper object", function () {
             const res = createFlow(() => { }, () => { });
             assert.exists(res);
-            assert.strictEqual(Object.keys(res).length, 5);
+            assert.strictEqual(Object.keys(res).length, 6);
             assert.isTrue(isFunction(res.getGenerator));
             assert.isTrue(isFunction(res.getIterator));
             assert.isTrue(isFunction(res.pipe));
             assert.isTrue(isFunction(res.toArray));
+            assert.isTrue(isFunction(res.find));
             assert.isTrue(isFunction(res.firstOrDefault));
         });
     });
@@ -139,7 +140,7 @@ describe("multiFlow", function () {
             assert.throws(() => createFlow(() => ({}), () => null).firstOrDefault());
         });
 
-        it("should return proper generator object", function () {
+        it("should return first item", function () {
             const fakeIter = [1, 2, 3];
             const res = createFlow(() => fakeIter, () => { }).firstOrDefault();
             assert.exists(res);
@@ -159,6 +160,30 @@ describe("multiFlow", function () {
             assert.exists(res);
             assert.isNumber(res);
             assert.strictEqual(res, 50);
+        });
+    });
+
+    describe("find", function() {
+        it("should throw if iter function returns null", function () {
+            assert.throws(() => createFlow(() => null, () => null).firstOrDefault());
+        });
+
+        it("should throw if iter function returns an object without an iterator", function () {
+            assert.throws(() => createFlow(() => ({}), () => null).firstOrDefault());
+        });
+
+        it("should return first matching element", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter).find((x) => x === 2);
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, 2);
+        });
+
+        it("should return null if doesn't exist", function () {
+            const fakeIter = [];
+            const res = createFlow(() => fakeIter).find((x) => x === 2);
+            assert.strictEqual(res, null);
         });
     });
 });

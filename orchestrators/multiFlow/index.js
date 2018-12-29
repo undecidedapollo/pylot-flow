@@ -1,5 +1,6 @@
 const isFunction = require("lodash/isFunction");
 
+const filter = require("../../operators/filter");
 const {
     checkExists,
     checkIs,
@@ -46,11 +47,16 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         return defaultVal;
     }
 
+    function find(predicate) {
+        return pipe(filter(predicate)).firstOrDefault();
+    }
+
     return {
         getIterator,
         getGenerator,
         pipe,
         toArray,
+        find,
         firstOrDefault,
     };
 }

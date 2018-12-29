@@ -224,6 +224,11 @@ for(const val of arr) {
 const firstVal = flowObj.firstOrDefault(); //Returns the first value in the array, null if the resulting array has no elements.
 const firstVal = flowObj.firstOrDefault(123); //Returns the first value in the array, 123 if the resulting array has no elements.
 
+// .find() - Returns the first value in the sequence that satisfies the predicate.
+
+const firstEvenVal = flowObj.find((num) => num % 2 === 0); //Returns the first even value, undefined if it doesn't exist. 
+// firstEvenVal = 2
+
 //.pipe() - Creates a new flow object, used for adding a sequence of operations.
 const newFlowObj = flowObj.pipe(map((num) => num * 2), skip(3), filter((num) => num > 10));
 

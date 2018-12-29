@@ -11,6 +11,4 @@ function filter(predicate) {
     };
 }
 
-module.exports = {
-    filter,
-};
+module.exports = filter;

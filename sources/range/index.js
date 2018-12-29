@@ -32,7 +32,7 @@ function range(start, end, step = 1) {
     checkIs("Integer", isInteger(start), "start");
     checkIs("Integer", isInteger(end), "end");
     checkIs("Integer", isInteger(step), "step");
-    checkIs("Number greater than or less than zero", step === 0, "step");
+    checkIs("Number greater than or less than zero", step !== 0, "step");
 
     const negative = step < 0;
     const validStep = negative ? start >= end : start <= end;

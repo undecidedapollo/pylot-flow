@@ -10,6 +10,4 @@ function forEach(predicate) {
     };
 }
 
-module.exports = {
-    forEach,
-};
+module.exports = forEach;

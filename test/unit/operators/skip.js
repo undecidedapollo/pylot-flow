@@ -1,8 +1,6 @@
 const assert = require("chai").assert;
 
-const {
-    skip,
-} = require("../../../operators/skip/index");
+const skip = require("../../../operators/skip/index");
 
 describe("skip", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];

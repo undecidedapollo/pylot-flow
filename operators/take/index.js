@@ -16,6 +16,4 @@ function take(takeCount) {
     };
 }
 
-module.exports = {
-    take,
-};
+module.exports = take;

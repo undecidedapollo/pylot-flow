@@ -8,6 +8,4 @@ function map(predicate) {
     };
 }
 
-module.exports = {
-    map,
-};
+module.exports = map;

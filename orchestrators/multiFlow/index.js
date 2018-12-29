@@ -1,3 +1,5 @@
+const isFunction = require("lodash/isFunction");
+
 const {
     checkExists,
     checkIs,
@@ -7,6 +9,9 @@ const {
 const standardPiper = require("../../runtimes/standardPiper");
 
 function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
+    checkIs("Function", isFunction(getIterFunc), "getIterFunc");
+    checkIs("Function", isFunction(piper), "piper");
+
     function _getExternalIterator() {
         const iter = getIterFunc();
         checkExists(iter);
@@ -14,18 +19,19 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         return iter;
     }
 
-    function getIterator() {
-        return _getExternalIterator();
-    }
-
     function getGenerator() {
-        return function fakeGenerator() {
-            return getIterator();
+        const iter = _getExternalIterator();
+        return function* fakeGenerator() {
+            yield* iter;
         };
     }
 
+    function getIterator() {
+        return getGenerator()();
+    }
+
     function pipe(...modifiers) {
-        return createFlow(piper(getIterFunc, ...modifiers));
+        return createFlow(piper(getIterFunc, ...modifiers), piper);
     }
 
     function toArray() {

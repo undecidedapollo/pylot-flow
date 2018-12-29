@@ -13,7 +13,6 @@ const {
 } = require("../../orchestrators/multiFlow");
 
 function fromArray(arr) {
-    checkExists(arr);
     checkIs("Array", isArray(arr));
     checkHas("Iterator", hasOrIsIterator(arr));
 

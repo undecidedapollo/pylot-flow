@@ -8,7 +8,7 @@
     "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtime/** source/**",
     "lint:fix": "eslint --fix --format codeframe --ext js index.js operators/** orchestrators/** runtime/** source/**",
     "lint:build": "eslint --ext js index.js operators/** orchestrators/** runtime/** source/**",
-    "test": "mocha test/unit/index.js"
+    "test": "mocha test/unit/index.js test/functional/index.js"
   },
   "repository": {
     "type": "git",

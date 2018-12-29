@@ -1,9 +1,7 @@
 const sinon = require("sinon");
 const assert = require("chai").assert;
 
-const {
-    filter,
-} = require("../../../operators/filter/index");
+const filter = require("../../../operators/filter/index");
 
 describe("filter", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];

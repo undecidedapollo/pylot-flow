@@ -1,8 +1,6 @@
 const assert = require("chai").assert;
 
-const {
-    take,
-} = require("../../../operators/take/index");
+const take = require("../../../operators/take/index");
 
 describe("take", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];

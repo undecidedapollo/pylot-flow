@@ -11,6 +11,4 @@ function skip(skipCount) {
     };
 }
 
-module.exports = {
-    skip,
-};
+module.exports = skip;

@@ -1,9 +1,7 @@
 const sinon = require("sinon");
 const assert = require("chai").assert;
 
-const {
-    map,
-} = require("../../../operators/map/index");
+const map = require("../../../operators/map/index");
 
 describe("map", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];

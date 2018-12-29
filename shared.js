@@ -1,6 +1,10 @@
-const _ = require("lodash");
+const isNumber = require("lodash/isNumber");
+const isString = require("lodash/isString");
+const isBoolean = require("lodash/isBoolean");
+const isSymbol = require("lodash/isSymbol");
 
 const exists = (x) => x !== null && x !== undefined;
+const isPrimitive = (x) => !exists(x) || isNumber(x) || isString(x) || isBoolean(x) || isSymbol(x)
 
 function checkExists(x, msg = "Expected object to exist") {
     if (!exists(x)) {
@@ -21,7 +25,11 @@ function checkIs(type, res, varName = "object", msg = `Expected ${varName} to be
 }
 
 function hasOrIsIterator(iter) {
-    if ((Symbol.asyncIterator in iter) || (Symbol.iterator in iter)) {
+    if (isPrimitive(iter)) {
+        return false;
+    }
+
+    if ((Symbol.iterator in iter)) {
         return true;
     }
 
@@ -29,11 +37,7 @@ function hasOrIsIterator(iter) {
 }
 
 function getIteratorFromArray(iter) {
-    if (Symbol.asyncIterator in iter) {
-        return iter[Symbol.asyncIterator]();
-    }
-
-    if(Symbol.iterator in iter) {
+    if (Symbol.iterator in iter) {
         return iter[Symbol.iterator]();
     }
 
@@ -43,6 +47,7 @@ function getIteratorFromArray(iter) {
 
 module.exports = {
     exists,
+    isPrimitive,
     checkExists,
     checkHas,
     checkIs,

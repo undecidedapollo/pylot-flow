@@ -2,6 +2,10 @@
 
 A collection of tools for creating lazy evaluated sequences.
 
+![build](https://gitlab.com/pylot-node/packages/flow/badges/master/build.svg)
+[![Coverage Status](https://coveralls.io/repos/github/undecidedapollo/pylot-flow/badge.svg?branch=master)](https://coveralls.io/github/undecidedapollo/pylot-flow?branch=master)
+
+
 ## Getting Started
 
 To install the package, run the command below.

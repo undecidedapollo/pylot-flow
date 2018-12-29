@@ -4,7 +4,7 @@
   "description": "A collection of tools for creating lazy sequences.",
   "main": "index.js",
   "scripts": {
-    "build": "npm-run-all -s lint:build cover coverage",
+    "build": "npm-run-all -s lint:build cover",
     "cover": "nyc npm run test",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",

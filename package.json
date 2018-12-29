@@ -1,13 +1,14 @@
 {
   "name": "@pylot/flow",
-  "version": "0.1.0",
+  "version": "0.5.0",
   "description": "A collection of tools for creating lazy sequences.",
   "main": "index.js",
   "scripts": {
+    "build": "npm-run-all -s lint:build cover",
     "cover": "nyc npm run test",
-    "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtime/** source/**",
-    "lint:fix": "eslint --fix --format codeframe --ext js index.js operators/** orchestrators/** runtime/** source/**",
-    "lint:build": "eslint --ext js index.js operators/** orchestrators/** runtime/** source/**",
+    "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
+    "lint:fix": "eslint --fix --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
+    "lint:build": "eslint --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
     "test": "mocha test/unit/index.js test/functional/index.js"
   },
   "repository": {

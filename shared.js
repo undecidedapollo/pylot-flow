@@ -3,6 +3,9 @@ const isString = require("lodash/isString");
 const isBoolean = require("lodash/isBoolean");
 const isSymbol = require("lodash/isSymbol");
 
+const NOOP = (x) => {};
+const NOOP_PASSTHROUGH = (x) => x;
+
 const exists = (x) => x !== null && x !== undefined;
 const isPrimitive = (x) => !exists(x) || isNumber(x) || isString(x) || isBoolean(x) || isSymbol(x)
 
@@ -46,6 +49,8 @@ function getIteratorFromArray(iter) {
 
 
 module.exports = {
+    NOOP,
+    NOOP_PASSTHROUGH,
     exists,
     isPrimitive,
     checkExists,

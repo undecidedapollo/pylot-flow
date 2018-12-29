@@ -3,6 +3,8 @@ const isError = require("lodash/isError");
 
 
 const {
+    NOOP,
+    NOOP_PASSTHROUGH,
     checkExists,
     checkHas,
     checkIs,
@@ -13,6 +15,18 @@ const {
 } = require("../../../shared");
 
 describe("shared", function () {
+    describe("NOOP", function() {
+        it("should return and do nothing", function() {
+            assert.notExists(NOOP(5));
+        });
+    });
+
+    describe("NOOP_PASSTHROUGH", function() {
+        it("should return and do nothing", function() {
+            assert.strictEqual(NOOP_PASSTHROUGH(5), 5);
+        });
+    });
+
     describe("isPrimitive", function () {
         it("should be true if item is null", function () {
             assert.isTrue(isPrimitive(null));

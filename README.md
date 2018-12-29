@@ -72,7 +72,6 @@ In the example below, it only has to invoke the filter function 6 times (1-6) un
 //Import flow library
 const flow = require("@pylot/flow");
 //Import operators
-const map = require("@pylot/operators/map");
 const filter = require("@pylot/operators/filter");
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
@@ -263,17 +262,37 @@ Returns set of elements that satisfy the predicate.
 ```javascript
 //Import flow library
 const flow = require("@pylot/flow");
-//Import map operator
+//Import filter operator
 const filter = require("@pylot/operators/filter");
 
 const result = flow.fromArray([1, 2, 3]).pipe(filter((num) => num > 1)).toArray();
 // result = [2, 3]
 ```
 
-|Operator|FilterMap|Type|
+|Operator|Filter|Type|
 |---|---|---|
 |Arguments|
 ||predicate|function(value, index) => boolean (true is satisfies, false if not)|
+|Returns|FLOW_OPERATOR|
+
+#### FlatMap
+
+Flattens result of transformation. If result is iterable, returns results in order. If result is not iterable, raw result returned.
+
+```javascript
+//Import flow library
+const flow = require("@pylot/flow");
+//Import flatMap operator
+const flatMap = require("@pylot/operators/flatMap");
+
+const result = flow.fromArray({arr: [1, 2, 3]}, {arr: [4, 5, 6]}, {arr: 7}).pipe(flatMap((obj) => obj.arr)).toArray();
+// result = [1, 2, 3, 4, 5, 6, 7]
+```
+
+|Operator|FlatMap|Type|
+|---|---|---|
+|Arguments|
+||predicate|function(value, index) => newVal|
 |Returns|FLOW_OPERATOR|
 
 #### ForEach
@@ -284,7 +303,7 @@ Invokes a function for each element, does not modify sequence.
 ```javascript
 //Import flow library
 const flow = require("@pylot/flow");
-//Import map operator
+//Import forEach operator
 const forEach = require("@pylot/operators/forEach");
 
 const result = flow.fromArray([1, 2, 3]).pipe(forEach((num) => console.log(num))).toArray();
@@ -309,7 +328,7 @@ Skips the first (numToSkip) number of elements from the sequence, returns the re
 ```javascript
 //Import flow library
 const flow = require("@pylot/flow");
-//Import map operator
+//Import skip operator
 const skip = require("@pylot/operators/skip");
 
 const result = flow.fromArray([1, 2, 3]).pipe(skip(2)).toArray();
@@ -332,8 +351,8 @@ Takes the first (numToTake) number of elements from the sequence, doesn't calcul
 ```javascript
 //Import flow library
 const flow = require("@pylot/flow");
-//Import map operator
-const skip = require("@pylot/operators/skip");
+//Import take operator
+const take = require("@pylot/operators/take");
 
 const result = flow.fromArray([1, 2, 3]).pipe(take(2)).toArray();
 // result = [1, 2]

@@ -7,7 +7,6 @@
   "scripts": {
     "build": "npm-run-all -s lint:build cover",
     "cover": "nyc npm run test",
-    "coverage": "nyc report --reporter=text-lcov",
     "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
     "lint:fix": "eslint --fix --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
     "lint:build": "eslint --ext js index.js operators/** orchestrators/** runtimes/** sources/**",

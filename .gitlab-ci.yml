@@ -12,7 +12,6 @@ test:node10:
   script:
     - npm install
     - npm run build
-    - npm run coverage
   only:
     - master
 

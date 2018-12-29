@@ -8,5 +8,6 @@ test/
 .gitlab-ci.yml
 .editorconfig
 .gitignore
+.eslintrc.js
 build/
 .nyc/

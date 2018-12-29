@@ -1,7 +1,6 @@
 const isArray = require("lodash/isArray");
 
 const {
-    checkExists,
     checkIs,
     checkHas,
     hasOrIsIterator,

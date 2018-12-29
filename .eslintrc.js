@@ -74,7 +74,8 @@ module.exports = {
         "no-var": "error",
         "prefer-rest-params": "error",
         "array-element-newline": ["error", "always"],
-        "array-bracket-newline": ["error", { "multiline": true, "minItems": 1 }]
+        "array-bracket-newline": ["error", { "multiline": true, "minItems": 1 }],
+        "no-unused-vars": ["error"],
     },
     "env": {
         "node": true,

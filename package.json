@@ -1,8 +1,9 @@
 {
   "name": "@pylot/flow",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "A collection of tools for creating lazy sequences.",
   "main": "index.js",
+  "readme": "README.md",
   "scripts": {
     "build": "npm-run-all -s lint:build cover",
     "cover": "nyc npm run test",
@@ -16,7 +17,14 @@
     "type": "git",
     "url": "git@persglab2:pylot-node/packages/flow.git"
   },
-  "keywords": [],
+  "keywords": [
+    "pylot",
+    "flow",
+    "generator",
+    "lazy",
+    "iterator",
+    "functional"
+  ],
   "author": "Jonah Nestrick<undecidedapollo>",
   "license": "ISC",
   "dependencies": {

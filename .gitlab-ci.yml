@@ -12,6 +12,7 @@ test:node10:
   script:
     - npm install
     - npm run build
+    - printenv
     - npm run coverage
   only:
     - master

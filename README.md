@@ -4,11 +4,11 @@ A collection of tools for creating lazy evaluated sequences.
 
 [![](https://img.shields.io/github/license/undecidedapollo/pylot-flow.svg)](https://gitlab.com/pylot-node/packages/flow)
 [![](https://img.shields.io/npm/v/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
-[![coverage report](https://gitlab.com/pylot-node/packages/flow/badges/master/coverage.svg)](https://gitlab.com/pylot-node/packages/flow/commits/master)
-[![](https://img.shields.io/david/undecidedapollo/pylot-flow.svg)](https://github.com/undecidedapollo/pylot-flow.git)
+[![coverage report](https://gitlab.com/pylot-node/packages/flow/badges/master/coverage.svg?job=test:node10)](https://gitlab.com/pylot-node/packages/flow/commits/master)
+[![](https://img.shields.io/david/undecidedapollo/pylot-flow.svg)](https://gitlab.com/pylot-node/packages/flow)
 [![build](https://gitlab.com/pylot-node/packages/flow/badges/master/build.svg)](https://gitlab.com/pylot-node/packages/flow)
-[![](https://img.shields.io/bundlephobia/min/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
-[![](https://img.shields.io/bundlephobia/minzip/@pylot/flow.svg)](https://www.npmjs.com/package/@pylot/flow)
+[![](https://img.shields.io/bundlephobia/min/@pylot/flow.svg)](https://gitlab.com/pylot-node/packages/flow)
+[![](https://img.shields.io/bundlephobia/minzip/@pylot/flow.svg)](https://gitlab.com/pylot-node/packages/flow)
 
 ## Getting Started
 

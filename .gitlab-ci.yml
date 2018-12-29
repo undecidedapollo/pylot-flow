@@ -13,7 +13,8 @@ test:node10:
     - npm install
     - npm run build
     - npm run coverage
-
+  only:
+    - master
 
 test:node8:
   stage: test
@@ -21,3 +22,5 @@ test:node8:
   script:
     - npm install
     - npm run build
+  only:
+    - master

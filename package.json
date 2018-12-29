@@ -1,6 +1,6 @@
 {
   "name": "@pylot/flow",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "A collection of tools for creating lazy sequences.",
   "main": "index.js",
   "readme": "README.md",

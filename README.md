@@ -38,9 +38,9 @@ const res = data.filter((num) => num * 2 > 10); //Returns arr of length 7. [6, 7
 const val = res[0]; //6
 ```
 
-### Declarative (Explicit coding)
+### Imperative approach (Explicit coding)
 
-To save on compute cycles you could use a for loop and break early. The issue is that it makes the implementation imperative instead of declarative. You waste time writing code telling the computer what to do, instead of focusing on what you want.
+To save on compute cycles you could use a for loop and break early. The issue is that it makes the implementation imperative (explicit) instead of declarative. You waste time writing code telling the computer what to do and how to do it, instead of focusing on the result.
 
 ```javascript
 //Find first number when multiplied by two that is greater than 10.
@@ -62,11 +62,11 @@ const val = getFirstGreaterThan10(data); //Returns 6
 ```
 
 
-### Using flow (imperative coding)
+### Using flow (declarative coding)
 
-Using flow provides the benefits of imperative, functional programming with the computational efficiency of using an explicit loop.
+Using flow provides the benefits of declarative, functional programming with the computational efficiency of using an explicit loop.
 
-In the example below, it only has to invoke the filter function 6 times (1-6) until it finds the first valid value. Since ```firstOrDefault()``` is being used, it stops once it reaches the first value, saving valuable computation time.
+In the example below, it only has to invoke the filter function 6 times (1-6) until it finds the first valid value. Since ```firstOrDefault()``` is being used, it stops once it reaches the first valid value, saving valuable computation time.
 
 ```javascript
 //Import flow library

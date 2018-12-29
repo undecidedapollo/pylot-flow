@@ -24,11 +24,12 @@ describe("multiFlow", function () {
         it("should return proper object", function () {
             const res = createFlow(() => { }, () => { });
             assert.exists(res);
-            assert.strictEqual(Object.keys(res).length, 4);
+            assert.strictEqual(Object.keys(res).length, 5);
             assert.isTrue(isFunction(res.getGenerator));
             assert.isTrue(isFunction(res.getIterator));
             assert.isTrue(isFunction(res.pipe));
             assert.isTrue(isFunction(res.toArray));
+            assert.isTrue(isFunction(res.firstOrDefault));
         });
     });
 
@@ -126,6 +127,38 @@ describe("multiFlow", function () {
             assert.isTrue(origRes.every((x, i) => x === fakeIter[i]));
             const newRes = newFlow.toArray();
             assert.isTrue(newRes.every((x, i) => x === fakeIter[i] * 2));
+        });
+    });
+
+    describe("firstOrDefault", function() {
+        it("should throw if iter function returns null", function () {
+            assert.throws(() => createFlow(() => null, () => null).firstOrDefault());
+        });
+
+        it("should throw if iter function returns an object without an iterator", function () {
+            assert.throws(() => createFlow(() => ({}), () => null).firstOrDefault());
+        });
+
+        it("should return proper generator object", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter, () => { }).firstOrDefault();
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, fakeIter[0]);
+        });
+
+        it("should return null if doesn't exist", function () {
+            const fakeIter = [];
+            const res = createFlow(() => fakeIter, () => { }).firstOrDefault();
+            assert.strictEqual(res, null);
+        });
+
+        it("should return default if doesn't exist", function () {
+            const fakeIter = [];
+            const res = createFlow(() => fakeIter, () => { }).firstOrDefault(50);
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, 50);
         });
     });
 });

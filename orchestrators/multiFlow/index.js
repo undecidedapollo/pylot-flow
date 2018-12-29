@@ -38,11 +38,20 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         return Array.from(getIterator());
     }
 
+    function firstOrDefault(defaultVal = null) {
+        for(const val of getIterator()) {
+            return val;
+        }
+
+        return defaultVal;
+    }
+
     return {
         getIterator,
         getGenerator,
         pipe,
         toArray,
+        firstOrDefault,
     };
 }
 

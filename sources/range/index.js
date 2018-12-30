@@ -45,6 +45,4 @@ function range(start, end, step = 1) {
     return createFlow(buildPositiveRangeGenerator(start, end, step)); 
 }
 
-module.exports = {
-    range,
-};
+module.exports = range;

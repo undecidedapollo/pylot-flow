@@ -1,9 +1,7 @@
 const sinon = require("sinon");
 const assert = require("chai").assert;
 
-const {
-    fromGenerator,
-} = require("../../../sources/fromGenerator/index");
+const fromGenerator = require("../../../sources/fromGenerator/index");
 
 describe("fromGenerator", function () {
     it("should throw if item is undefined", function () {

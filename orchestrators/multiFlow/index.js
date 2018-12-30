@@ -1,6 +1,7 @@
 const isFunction = require("lodash/isFunction");
 
 const filter = require("../../operators/filter");
+
 const {
     checkExists,
     checkIs,

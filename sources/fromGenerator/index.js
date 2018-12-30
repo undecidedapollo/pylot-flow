@@ -15,6 +15,4 @@ function fromGenerator(getIterFunc) {
     return createFlow(getIterFunc);
 }
 
-module.exports = {
-    fromGenerator,
-};
+module.exports = fromGenerator;

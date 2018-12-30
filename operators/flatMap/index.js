@@ -4,7 +4,7 @@ const {
 } = require("../../shared");
 
 function flatMap(predicate = NOOP_PASSTHROUGH) {
-    return function* forEachGenerator(iterator) {
+    return function* flatMapGenerator(iterator) {
         let index = 0;
         for (const val of iterator) {
             const mappedVal = predicate(val, index);

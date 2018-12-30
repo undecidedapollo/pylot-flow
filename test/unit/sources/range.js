@@ -1,8 +1,6 @@
 const assert = require("chai").assert;
 
-const {
-    range,
-} = require("../../../sources/range/index");
+const range = require("../../../sources/range/index");
 
 describe("range", function () {
     it("should throw if start is not a number", function () {

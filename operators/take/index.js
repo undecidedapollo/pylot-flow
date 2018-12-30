@@ -1,5 +1,5 @@
 function take(takeCount) {
-    return function* forEachGenerator(iterator) {
+    return function* takeGenerator(iterator) {
         if (takeCount <= 0) {
             return;
         }

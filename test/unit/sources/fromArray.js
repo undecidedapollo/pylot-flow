@@ -1,8 +1,6 @@
 const assert = require("chai").assert;
 
-const {
-    fromArray,
-} = require("../../../sources/fromArray/index");
+const fromArray = require("../../../sources/fromArray/index");
 
 describe("fromArray", function () {
     it("should throw if item is undefined", function () {

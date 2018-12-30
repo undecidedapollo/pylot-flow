@@ -20,6 +20,4 @@ function fromArray(arr) {
     });
 }
 
-module.exports = {
-    fromArray,
-};
+module.exports = fromArray;

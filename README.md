@@ -72,7 +72,7 @@ In the example below, it only has to invoke the filter function 6 times (1-6) un
 //Import flow library
 const flow = require("@pylot/flow");
 //Import operators
-const filter = require("@pylot/operators/filter");
+const filter = require("@pylot/flow/operators/filter");
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
 
@@ -90,8 +90,8 @@ The most basic usage of flow would be using lazy evaluation for an array of valu
 //Import flow library
 const flow = require("@pylot/flow");
 //Import operators
-const map = require("@pylot/operators/map");
-const filter = require("@pylot/operators/filter");
+const map = require("@pylot/flow/operators/map");
+const filter = require("@pylot/flow/operators/filter");
 
 const isEven = (num) => num % 2 === 0;
 
@@ -115,8 +115,8 @@ The use a generator as the source.
 //Import flow library
 const flow = require("@pylot/flow");
 //Import operators
-const map = require("@pylot/operators/map");
-const filter = require("@pylot/operators/filter");
+const map = require("@pylot/flow/operators/map");
+const filter = require("@pylot/flow/operators/filter");
 
 const isEven = (num) => num % 2 === 0;
 
@@ -157,8 +157,8 @@ To generate values based upon a range.
 //Import flow library
 const flow = require("@pylot/flow");
 //Import operators
-const map = require("@pylot/operators/map");
-const filter = require("@pylot/operators/filter");
+const map = require("@pylot/flow/operators/map");
+const filter = require("@pylot/flow/operators/filter");
 
 const isEven = (num) => num % 2 === 0;
 
@@ -247,7 +247,7 @@ Transforms each element in a sequence.
 //Import flow library
 const flow = require("@pylot/flow");
 //Import map operator
-const map = require("@pylot/operators/map");
+const map = require("@pylot/flow/operators/map");
 
 const result = flow.fromArray([1, 2, 3]).pipe(map((num) => num * 2)).toArray();
 // result = [4, 5, 6]
@@ -268,7 +268,7 @@ Returns set of elements that satisfy the predicate.
 //Import flow library
 const flow = require("@pylot/flow");
 //Import filter operator
-const filter = require("@pylot/operators/filter");
+const filter = require("@pylot/flow/operators/filter");
 
 const result = flow.fromArray([1, 2, 3]).pipe(filter((num) => num > 1)).toArray();
 // result = [2, 3]
@@ -288,7 +288,7 @@ Flattens result of transformation. If result is iterable, returns results in ord
 //Import flow library
 const flow = require("@pylot/flow");
 //Import flatMap operator
-const flatMap = require("@pylot/operators/flatMap");
+const flatMap = require("@pylot/flow/operators/flatMap");
 
 const result = flow.fromArray({arr: [1, 2, 3]}, {arr: [4, 5, 6]}, {arr: 7}).pipe(flatMap((obj) => obj.arr)).toArray();
 // result = [1, 2, 3, 4, 5, 6, 7]
@@ -300,6 +300,29 @@ const result = flow.fromArray({arr: [1, 2, 3]}, {arr: [4, 5, 6]}, {arr: 7}).pipe
 ||predicate|function(value, index) => newVal|
 |Returns|FLOW_OPERATOR|
 
+#### Flatten
+
+Flattens values up to a specified depth. If result is iterable, returns results in order. If result is not iterable, raw result returned.
+
+```javascript
+//Import flow library
+const flow = require("@pylot/flow");
+//Import flatten operator
+const flatten = require("@pylot/flow/operators/flatten");
+
+const result = flow.fromArray([1, [2, [3, [4, [5, [6, [7]]]]]]]).pipe(flatten()).toArray(); //Flatten infinite depth
+// result = [1, 2, 3, 4, 5, 6, 7]
+
+const result = flow.fromArray([1, [2, [3, [4, [5, [6, [7]]]]]]]).pipe(flatten(5)).toArray(); //Flatten to a depth of 5
+// result = [1, 2, 3, 4, 5, 6, [7]]
+```
+
+|Operator|Flatten|Type|Default|
+|---|---|---|---|
+|Arguments|
+||maxDepth|Integer|Number.POSITIVE_INFINITY|
+|Returns|FLOW_OPERATOR|
+
 #### ForEach
 
 Invokes a function for each element, does not modify sequence.
@@ -309,7 +332,7 @@ Invokes a function for each element, does not modify sequence.
 //Import flow library
 const flow = require("@pylot/flow");
 //Import forEach operator
-const forEach = require("@pylot/operators/forEach");
+const forEach = require("@pylot/flow/operators/forEach");
 
 const result = flow.fromArray([1, 2, 3]).pipe(forEach((num) => console.log(num))).toArray();
 // result = [1, 2, 3]
@@ -334,7 +357,7 @@ Skips the first (numToSkip) number of elements from the sequence, returns the re
 //Import flow library
 const flow = require("@pylot/flow");
 //Import skip operator
-const skip = require("@pylot/operators/skip");
+const skip = require("@pylot/flow/operators/skip");
 
 const result = flow.fromArray([1, 2, 3]).pipe(skip(2)).toArray();
 // result = [3]
@@ -357,7 +380,7 @@ Takes the first (numToTake) number of elements from the sequence, doesn't calcul
 //Import flow library
 const flow = require("@pylot/flow");
 //Import take operator
-const take = require("@pylot/operators/take");
+const take = require("@pylot/flow/operators/take");
 
 const result = flow.fromArray([1, 2, 3]).pipe(take(2)).toArray();
 // result = [1, 2]

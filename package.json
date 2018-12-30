@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@persglab2:pylot-node/packages/flow.git"
+    "url": "https://gitlab.com/pylot-node/packages/flow.git"
   },
   "keywords": [
     "pylot",

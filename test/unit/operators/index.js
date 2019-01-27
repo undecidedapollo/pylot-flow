@@ -1,4 +1,5 @@
 describe("operators", function () {
+    require("./bundle");
     require("./filter");
     require("./flatMap");
     require("./flatten");

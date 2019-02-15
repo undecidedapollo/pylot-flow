@@ -52,7 +52,7 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         return pipe(filter(predicate)).firstOrDefault();
     }
 
-    return {
+    const retObj = {
         [Symbol.iterator]: getIterator,
         getIterator,
         getGenerator,
@@ -61,6 +61,10 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         find,
         firstOrDefault,
     };
+
+    Object.setPrototypeOf(retObj, Array.prototype);
+
+    return retObj;
 }
 
 module.exports = {

@@ -3,6 +3,11 @@ const {
     checkIs,
 } = require("../../shared");
 
+/**
+ * Bundles items into groups based on bundle amount.
+ * @param {number} bundleAmount The number of items you want per resulting collection.
+ * @returns {Generator} Flow bundle operator
+ */
 function bundle(bundleAmount) {
     checkIs("integer", isInteger(bundleAmount), "bundleAmount");
     checkIs("greater than or equal to 1", bundleAmount >= 1, "bundleAmount");

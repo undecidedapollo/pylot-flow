@@ -16,7 +16,7 @@ module.exports = {
         "func-names": ["error", "as-needed"],
         "eqeqeq": ["error", "always"],
         "require-jsdoc": 0,
-        "valid-jsdoc": 0,
+        "valid-jsdoc": "error",
         "max-len": 0,
         "quotes": [2, "double", {
             allowTemplateLiterals: true

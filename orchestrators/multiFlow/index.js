@@ -41,7 +41,7 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
     }
 
     function firstOrDefault(defaultVal = null) {
-        for(const val of getIterator()) {
+        for (const val of getIterator()) {
             return val;
         }
 
@@ -53,6 +53,7 @@ function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
     }
 
     return {
+        [Symbol.iterator]: getIterator,
         getIterator,
         getGenerator,
         pipe,

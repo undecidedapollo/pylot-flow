@@ -84,4 +84,49 @@ describe("general library tests", function () {
             assert.strictEqual(postMapStub.callCount, 3);
         });
     });
+
+    describe("Symbol.iterator", function() {
+        it("should return proper sequence in for loop", function() {
+            const initialStub = sinon.stub();
+            const preFilterStub = sinon.stub();
+            const postFilterStub = sinon.stub();
+            const postMapStub = sinon.stub();
+            const res = flow
+            .fromArray(origArr)
+            .pipe(forEach(initialStub), skip(2))
+            .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
+            .pipe(map(x => x * 2), take(3), forEach(postMapStub));
+            let i = 0;
+            for(const val of res) {
+                assert.strictEqual(val, resArr[i]);
+                i++;
+            }
+
+            assert.strictEqual(i, resArr.length);
+            assert.strictEqual(initialStub.callCount, 8);
+            assert.strictEqual(preFilterStub.callCount, 6);
+            assert.strictEqual(postFilterStub.callCount, 3);
+            assert.strictEqual(postMapStub.callCount, 3);
+        });
+
+        it("should return proper sequence in Array.from", function() {
+            const initialStub = sinon.stub();
+            const preFilterStub = sinon.stub();
+            const postFilterStub = sinon.stub();
+            const postMapStub = sinon.stub();
+            const res = Array.from(flow
+            .fromArray(origArr)
+            .pipe(forEach(initialStub), skip(2))
+            .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
+            .pipe(map(x => x * 2), take(3), forEach(postMapStub)));
+
+            assert.isArray(res);
+            assert.strictEqual(res.length, resArr.length);
+            assert.isTrue(res.every((x, i) => x === resArr[i]));
+            assert.strictEqual(initialStub.callCount, 8);
+            assert.strictEqual(preFilterStub.callCount, 6);
+            assert.strictEqual(postFilterStub.callCount, 3);
+            assert.strictEqual(postMapStub.callCount, 3);
+        });
+    });
 });

@@ -1,0 +1,4 @@
+Version 0.7.0
+---------------------
+Flow object now implements iterator protocal. Can now be used in for...of loops or Array.from
+Fixed Linting issues

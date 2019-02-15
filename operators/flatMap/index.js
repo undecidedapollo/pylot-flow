@@ -9,7 +9,7 @@ function flatMap(predicate = NOOP_PASSTHROUGH) {
         for (const val of iterator) {
             const mappedVal = predicate(val, index);
             index += 1;
-            if(hasOrIsIterator(mappedVal)) {
+            if (hasOrIsIterator(mappedVal)) {
                 yield* mappedVal;
             } else {
                 yield mappedVal;

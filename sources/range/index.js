@@ -38,7 +38,7 @@ function range(start, end, step = 1) {
     const validStep = negative ? start >= end : start <= end;
     checkIs("Valid Range", validStep, "range");
 
-    if(negative) {
+    if (negative) {
         return createFlow(buildNegativeRangeGenerator(start, end, step)); 
     }
 

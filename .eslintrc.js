@@ -18,7 +18,9 @@ module.exports = {
         "require-jsdoc": 0,
         "valid-jsdoc": 0,
         "max-len": 0,
-        "quotes": [2, "double", { allowTemplateLiterals: true }],
+        "quotes": [2, "double", {
+            allowTemplateLiterals: true
+        }],
         "comma-dangle": [2, "always-multiline"],
         'space-before-function-paren': [2, {
             asyncArrow: 'always',
@@ -27,7 +29,9 @@ module.exports = {
         }],
         "block-scoped-var": "error",
         "default-case": "error",
-        "no-console": ["error", { allow: ["warn"] }],
+        "no-console": ["error", {
+            allow: ["warn"]
+        }],
         "no-alert": "error",
         "no-else-return": "error",
         "no-empty-function": "error",
@@ -58,8 +62,13 @@ module.exports = {
         "no-path-concat": "error",
         "no-process-exit": "error",
         "no-process-env": "error",
-        "brace-style": ["error", "1tbs", { "allowSingleLine": false }],
-        "comma-spacing": ["error", { "before": false, "after": true }],
+        "brace-style": ["error", "1tbs", {
+            "allowSingleLine": false
+        }],
+        "comma-spacing": ["error", {
+            "before": false,
+            "after": true
+        }],
         "func-style": ["error", "declaration"],
         "no-bitwise": "error",
         "no-lonely-if": "error",
@@ -68,14 +77,29 @@ module.exports = {
         "no-plusplus": "error",
         "no-tabs": "error",
         "arrow-parens": ["error", "always"],
-        "arrow-spacing": ["error", { "before": true, "after": true }],
-        "generator-star-spacing": ["error", { "before": false, "after": true }],
-        "no-duplicate-imports": ["error", { "includeExports": true }],
+        "arrow-spacing": ["error", {
+            "before": true,
+            "after": true
+        }],
+        "generator-star-spacing": ["error", {
+            "before": false,
+            "after": true
+        }],
+        "no-duplicate-imports": ["error", {
+            "includeExports": true
+        }],
         "no-var": "error",
         "prefer-rest-params": "error",
         "array-element-newline": ["error", "always"],
-        "array-bracket-newline": ["error", { "multiline": true, "minItems": 1 }],
+        "array-bracket-newline": ["error", {
+            "multiline": true,
+            "minItems": 1
+        }],
         "no-unused-vars": ["error"],
+        "keyword-spacing": ["error", {
+            "before": true,
+            "after": true
+        }]
     },
     "env": {
         "node": true,

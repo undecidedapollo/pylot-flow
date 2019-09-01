@@ -12,8 +12,6 @@ test:node12:
   script:
     - npm install
     - npm run build
-  only:
-    - master
 
 test:node10:
   stage: test
@@ -21,8 +19,6 @@ test:node10:
   script:
     - npm install
     - npm run build
-  only:
-    - master
 
 test:node8:
   stage: test
@@ -30,5 +26,3 @@ test:node8:
   script:
     - npm install
     - npm run build
-  only:
-    - master

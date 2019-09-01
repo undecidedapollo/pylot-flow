@@ -6,5 +6,7 @@ describe("operators", function () {
     require("./forEach");
     require("./map");
     require("./skip");
+    require("./skipWhile");
     require("./take");
+    require("./takeWhile");
 });

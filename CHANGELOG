@@ -1,4 +1,16 @@
+Version 0.8.0
+---------------------
+Flow object now implements "reduce" method with implementation similar to Array.reduce
+New operators:
+    - skipWhile - Skips elements until predicate returns a falsey value
+    - takeWhile - Yields elements until predicate returns a falsey value
+
+Version 0.7.1
+---------------------
+Updated vulnerable dependencies
+
+
 Version 0.7.0
 ---------------------
-Flow object now implements iterator protocal. Can now be used in for...of loops or Array.from
+Flow object now implements iterator protocol. Can now be used in for...of loops or Array.from
 Fixed Linting issues

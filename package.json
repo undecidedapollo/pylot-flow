@@ -49,7 +49,8 @@
     ],
     "exclude": [
       "test/",
-      "build/"
+      "build/",
+      ".eslintrc.js"
     ],
     "reporter": [
       "lcov",

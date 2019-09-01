@@ -24,17 +24,18 @@ describe("multiFlow", function () {
         it("should return proper object", function () {
             const res = createFlow(() => { }, () => { });
             assert.exists(res);
-            assert.strictEqual(Object.keys(res).length, 6);
+            assert.strictEqual(Object.keys(res).length, 7);
             assert.isTrue(isFunction(res.getGenerator));
             assert.isTrue(isFunction(res.getIterator));
             assert.isTrue(isFunction(res.pipe));
             assert.isTrue(isFunction(res.toArray));
             assert.isTrue(isFunction(res.find));
             assert.isTrue(isFunction(res.firstOrDefault));
+            assert.isTrue(isFunction(res.reduce));
         });
     });
 
-    describe("getIterator", function() {
+    describe("getIterator", function () {
         it("should throw if iter function returns null", function () {
             assert.throws(() => createFlow(() => null, () => null).getIterator());
         });
@@ -52,7 +53,7 @@ describe("multiFlow", function () {
         });
     });
 
-    describe("getGenerator", function() {
+    describe("getGenerator", function () {
         it("should throw if iter function returns null", function () {
             assert.throws(() => createFlow(() => null, () => null).getGenerator());
         });
@@ -75,7 +76,7 @@ describe("multiFlow", function () {
         });
     });
 
-    describe("toArray", function() {
+    describe("toArray", function () {
         it("should throw if iter function returns null", function () {
             assert.throws(() => createFlow(() => null, () => null).toArray());
         });
@@ -94,7 +95,7 @@ describe("multiFlow", function () {
         });
     });
 
-    describe("pipe", function() {
+    describe("pipe", function () {
         it("should return a new flow obj, custom piper, return proper values", function () {
             const fakeIter = [1, 2, 3];
             const newFakeIterRes = [4, 5, 6];
@@ -117,7 +118,7 @@ describe("multiFlow", function () {
             const fakeIter = [1, 2, 3];
             const originalFlow = createFlow(() => fakeIter);
             const newFlow = originalFlow.pipe(function* fakeOperator(iter) {
-                for(const val of iter) {
+                for (const val of iter) {
                     yield val * 2;
                 }
             });
@@ -131,7 +132,7 @@ describe("multiFlow", function () {
         });
     });
 
-    describe("firstOrDefault", function() {
+    describe("firstOrDefault", function () {
         it("should throw if iter function returns null", function () {
             assert.throws(() => createFlow(() => null, () => null).firstOrDefault());
         });
@@ -163,7 +164,7 @@ describe("multiFlow", function () {
         });
     });
 
-    describe("find", function() {
+    describe("find", function () {
         it("should throw if iter function returns null", function () {
             assert.throws(() => createFlow(() => null, () => null).firstOrDefault());
         });
@@ -185,5 +186,51 @@ describe("multiFlow", function () {
             const res = createFlow(() => fakeIter).find((x) => x === 2);
             assert.strictEqual(res, null);
         });
+    });
+
+    describe("reduce", function () {
+        it("should throw if iter function returns null", function () {
+            assert.throws(() => createFlow(() => null, () => null).reduce());
+        });
+
+        it("should throw if iter function returns an object without an iterator", function () {
+            assert.throws(() => createFlow(() => ({}), () => null).reduce());
+        });
+
+        it("should throw if initial value is undefined and array is empty", function () {
+            const fakeIter = [];
+            assert.throws(() => createFlow(() => fakeIter).reduce(() => { }, undefined), /^Reduce of empty array with no initial value$/);
+        });
+
+        it("should throw if initial value is null and array is empty", function () {
+            const fakeIter = [];
+            assert.throws(() => createFlow(() => fakeIter).reduce(() => { }, null), /^Reduce of empty array with no initial value$/);
+        });
+
+        it("should return first element if array has one item and no inital value", function () {
+            const fakeIter = [1];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x);
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, 1);
+        });
+
+        it("should return elements reduced, using initial value", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x, 4);
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, 10);
+        });
+
+        it("should return elements reduced, using first value if initial value not defined", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x);
+            assert.exists(res);
+            assert.isNumber(res);
+            assert.strictEqual(res, 6);
+        });
+
+
     });
 });

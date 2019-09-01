@@ -6,6 +6,15 @@ before_script:
 stages:
 - test
 
+test:node12:
+  stage: test
+  image: node:12-alpine
+  script:
+    - npm install
+    - npm run build
+  only:
+    - master
+
 test:node10:
   stage: test
   image: node:10-alpine

@@ -398,7 +398,7 @@ const result = flow.fromArray([1, 2, 3]).pipe(take(2)).toArray();
 ## License
 ISC Licence
 
-Copyright 2018 - Jonah Nestrick
+Copyright 2019 - Jonah Nestrick
 
 ## Contributing
 All contributions are welcome as long as the code being added is licensed under a similar license.

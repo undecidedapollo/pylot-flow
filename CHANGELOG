@@ -1,6 +1,10 @@
 Version 1.0.0
 ---------------------
 Migrated entire project to typescript. Updated dependencies.
+Flow object now implements "reduce" method with implementation similar to Array.reduce
+New operators:
+    - skipWhile - Skips elements until predicate returns a falsey value
+    - takeWhile - Yields elements until predicate returns a falsey value
 
 Version 0.7.0
 ---------------------

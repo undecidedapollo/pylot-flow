@@ -20,13 +20,14 @@ describe("multiFlow", function () {
         it("should return proper object", function () {
             const res = createFlow((() => { }) as any, (() => { }) as any);
             expect(res).toBeTruthy();
-            expect(Object.keys(res).length).toBe(6);
+            expect(Object.keys(res).length).toBe(7);
             expect(isFunction(res.getGenerator)).toBe(true);
             expect(isFunction(res.getIterator)).toBe(true);
             expect(isFunction(res.pipe)).toBe(true);
             expect(isFunction(res.toArray)).toBe(true);
             expect(isFunction(res.find)).toBe(true);
             expect(isFunction(res.firstOrDefault)).toBe(true);
+            expect(isFunction(res.reduce)).toBe(true);
         });
     });
 
@@ -178,4 +179,47 @@ describe("multiFlow", function () {
         });
     });
 
+    describe("reduce", function () {
+        it("should throw if iter function returns null", function () {
+            expect(() => createFlow(() => null, () => null as any).reduce(undefined as any)).toThrow();
+        });
+
+        it("should throw if iter function returns an object without an iterator", function () {
+            expect(() => createFlow(() => ({}), () => null as any).reduce(undefined as any)).toThrow();
+        });
+
+        it("should throw if initial value is undefined and array is empty", function () {
+            const fakeIter = [];
+            expect(() => createFlow(() => fakeIter).reduce(() => { }, undefined)).toThrow(/^Reduce of empty array with no initial value$/);
+        });
+
+        it("should throw if initial value is null and array is empty", function () {
+            const fakeIter = [];
+            expect(() => createFlow(() => fakeIter).reduce(() => { }, null)).toThrow(/^Reduce of empty array with no initial value$/);
+        });
+
+        it("should return first element if array has one item and no inital value", function () {
+            const fakeIter = [1];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x);
+            expect(res).toBeDefined();
+            expect(typeof res).toBe("number");
+            expect(res).toBe(1);
+        });
+
+        it("should return elements reduced, using initial value", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x, 4);
+            expect(res).toBeDefined();
+            expect(typeof res).toBe("number");
+            expect(res).toBe(10);
+        });
+
+        it("should return elements reduced, using first value if initial value not defined", function () {
+            const fakeIter = [1, 2, 3];
+            const res = createFlow(() => fakeIter).reduce((acc, x) => acc + x);
+            expect(res).toBeDefined();
+            expect(typeof res).toBe("number");
+            expect(res).toBe(6);
+        });
+    });
 });

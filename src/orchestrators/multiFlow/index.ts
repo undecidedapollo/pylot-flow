@@ -5,6 +5,7 @@ import filter from "../../operators/filter";
 import {
     checkExists,
     checkIs,
+    exists,
     hasOrIsIterator,
 } from "../../shared";
 
@@ -52,6 +53,29 @@ export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         return pipe(filter(predicate)).firstOrDefault();
     }
 
+    function reduce(predicate, initialValue?) {
+        let index = -1;
+        let accumulator = initialValue;
+        const iter = getIterator();
+
+        for (const val of iter) {
+            index += 1;
+            if (index === 0 && !exists(accumulator)) {
+                accumulator = val;
+                continue;
+            }
+
+            accumulator = predicate(accumulator, val, index);
+        }
+
+        if (index === -1 && !exists(initialValue)) {
+            // This is added for compatibility with the array implementation of reduce.
+            throw new TypeError("Reduce of empty array with no initial value");
+        }
+
+        return accumulator;
+    }
+
     return {
         [Symbol.iterator]: getIterator,
         getIterator,
@@ -60,5 +84,6 @@ export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         toArray,
         find,
         firstOrDefault,
+        reduce,
     };
 }

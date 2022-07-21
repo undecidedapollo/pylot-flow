@@ -228,6 +228,12 @@ const newFlowObj = flowObj.pipe(map((num) => num * 2), skip(3), filter((num) => 
 
 const results = newFlowObj.toArray();
 
+//.reduce() - Calls a predicate on each item in the set, keeping track of an accumulator value between invocations
+const sumOf1to3 = flowObj.reduce((accumulator, num) => accumulator + num); //Sums the numbers together
+// sumOf1to3 = 6
+const sumOf1to4 = flowObj.reduce((accumulator, num) => accumulator + num, 4); //Sums the numbers together, starting with an inital value of 4
+// sumOf1to4 = 10
+
 ```
 
 ### Operators
@@ -356,6 +362,27 @@ const result = flow.fromArray([1, 2, 3]).pipe(skip(2)).toArray();
 ||numToSkip| integer/number
 |Returns|FLOW_OPERATOR|
 
+#### SkipWhile
+
+Skips elements from the sequence until the predicate returns falsey.
+
+
+```typescript
+import flow from "@pylot/flow";
+import skipWhile from "@pylot/flow/operators/skipWhile";
+const result = flow.fromArray([1, 2, 3]).pipe(skipWhile((num) => num < 3)).toArray();
+// result = [3]
+```
+
+
+
+|Operator|SkipWhile|Type|
+|---|---|---|
+|Arguments|
+||functionToRun|function(value, index) => boolean (true is you want to keep skipping, false if you want to take the rest of the sequence)|
+|Returns|FLOW_OPERATOR|
+
+
 #### Take
 
 Takes the first (numToTake) number of elements from the sequence, doesn't calculate the rest.
@@ -376,6 +403,27 @@ const result = flow.fromArray([1, 2, 3]).pipe(take(2)).toArray();
 |---|---|---|
 |Arguments|
 ||numToTake| integer/number
+|Returns|FLOW_OPERATOR|
+
+
+#### TakeWhile
+
+Takes elements from the sequence until the predicate returns falsey.
+
+
+```typescript
+import flow from "@pylot/flow";
+import takeWhile from "@pylot/flow/operators/takeWhile";
+const result = flow.fromArray([1, 2, 3]).pipe(takeWhile((num) => num < 3)).toArray();
+// result = [1, 2]
+```
+
+
+
+|Operator|TakeWhile|Type|
+|---|---|---|
+|Arguments|
+||functionToRun|function(value, index) => boolean (true if you want to keep taking elements, false if you do not want anymore elements)|
 |Returns|FLOW_OPERATOR|
 
 

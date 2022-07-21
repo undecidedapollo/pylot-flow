@@ -1,8 +1,12 @@
 module.exports = {
-    "parserOptions": {
-        "ecmaVersion": 2018,
-        "sourceType": "module"
-    },
+    "parser": '@typescript-eslint/parser',
+    "plugins": [
+        '@typescript-eslint',
+    ],
+    "extends": [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+    ],
     "rules": {
         "semi": 2,
         "indent": ["error", 4],
@@ -95,11 +99,12 @@ module.exports = {
             "multiline": true,
             "minItems": 1
         }],
-        "no-unused-vars": ["error"],
         "keyword-spacing": ["error", {
             "before": true,
             "after": true
-        }]
+        }],
+        "@typescript-eslint/no-explicit-any": "off",
+        "func-style": "off",
     },
     "env": {
         "node": true,

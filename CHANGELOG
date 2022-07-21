@@ -1,3 +1,7 @@
+Version 1.0.0
+---------------------
+Migrated entire project to typescript. Updated dependencies.
+
 Version 0.7.0
 ---------------------
 Flow object now implements iterator protocal. Can now be used in for...of loops or Array.from

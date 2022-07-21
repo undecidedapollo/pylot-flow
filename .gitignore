@@ -7,3 +7,5 @@ lib/
 build/
 .idea
 .nyc/
+dist/
+package/

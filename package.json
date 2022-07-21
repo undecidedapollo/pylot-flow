@@ -1,16 +1,16 @@
 {
   "name": "@pylot/flow",
-  "version": "0.7.2",
+  "version": "1.0.0-rc1",
   "description": "A collection of tools for creating lazy sequences.",
   "main": "index.js",
   "readme": "README.md",
   "scripts": {
-    "build": "npm-run-all -s lint:build cover",
-    "cover": "nyc npm run test",
-    "lint": "eslint --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
-    "lint:fix": "eslint --fix --format codeframe --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
-    "lint:build": "eslint --ext js index.js operators/** orchestrators/** runtimes/** sources/**",
-    "test": "mocha test/unit/index.js test/functional/index.js"
+    "build": "npm run lint; npm run test; npm run tsc",
+    "lint": "eslint --ext ts src/**",
+    "lint:fix": "eslint --fix --ext ts src/**",
+    "test": "jest",
+    "tsc": "tsc",
+    "package": "npm run build; rm -fdr ./package/; mkdir -p ./package/; cp -r dist/ package.json package-lock.json LICENSE README.md .npmignore .gitignore package/"
   },
   "repository": {
     "type": "git",
@@ -27,40 +27,22 @@
   "author": "Jonah Nestrick<undecidedapollo>",
   "license": "ISC",
   "dependencies": {
-    "lodash": "^4.17.15"
+    "lodash.isarray": "^4.0.0",
+    "lodash.isboolean": "^3.0.3",
+    "lodash.isfunction": "^3.0.9",
+    "lodash.isinteger": "^4.0.4",
+    "lodash.isnumber": "^3.0.3",
+    "lodash.isstring": "^4.0.1",
+    "lodash.issymbol": "^4.0.1"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "eslint": "^5.11.1",
-    "mocha": "^5.2.0",
-    "npm-run-all": "^4.1.5",
-    "nyc": "^14.1.1",
-    "sinon": "^7.2.2"
-  },
-  "nyc": {
-    "check-coverage": true,
-    "per-file": true,
-    "lines": 100,
-    "statements": 100,
-    "functions": 100,
-    "branches": 100,
-    "include": [
-      "**/*.js"
-    ],
-    "exclude": [
-      "test/",
-      "build/",
-      ".eslintrc.js"
-    ],
-    "reporter": [
-      "lcov",
-      "text"
-    ],
-    "extension": [
-      ".js"
-    ],
-    "all": true,
-    "temp-dir": "./.nyc",
-    "report-dir": "./build/nyc"
+    "@types/jest": "^28.1.6",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "eslint": "8.20.0",
+    "jest": "^28.1.3",
+    "lodash.iserror": "^3.1.1",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
   }
 }

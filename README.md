@@ -66,7 +66,7 @@ Using flow provides the benefits of declarative, functional programming with the
 In the example below, it only has to invoke the filter function 6 times (1-6) until it finds the first valid value. Since ```firstOrDefault()``` is being used, it stops once it reaches the first valid value, saving valuable computation time.
 
 ```typescript
-import flow from "@pylot/flow"; "@pylot/flow";
+import flow from "@pylot/flow";
 import filter from "@pylot/flow/operators/filter";
 
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
@@ -82,7 +82,7 @@ To get started with flow, you must have an array, a generator, or create a range
 The most basic usage of flow would be using lazy evaluation for an array of values.
 
 ```typescript
-import flow from "@pylot/flow"; "@pylot/flow";
+import flow from "@pylot/flow";
 import map from "@pylot/flow/operators/map";
 import filter from "@pylot/flow/operators/filter";
 
@@ -109,7 +109,7 @@ for (const val of newFlowObj.getIterator()) {
 The use a generator as the source.
 
 ```typescript
-import flow from "@pylot/flow"; "@pylot/flow";
+import flow from "@pylot/flow";
 import map from "@pylot/flow/operators/map";
 import filter from "@pylot/flow/operators/filter";
 
@@ -148,7 +148,7 @@ for(const val of newFlowObj.getIterator()) { //Computes the operators above on d
 To generate values based upon a range.
 
 ```typescript
-import flow from "@pylot/flow"; "@pylot/flow";
+import flow from "@pylot/flow";
 import map from "@pylot/flow/operators/map";
 import filter from "@pylot/flow/operators/filter";
 

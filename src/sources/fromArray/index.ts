@@ -10,12 +10,11 @@ import {
 import {
     createFlow,
 } from "../../orchestrators/multiFlow";
+import { Flow } from "../../types";
 
-export default function fromArray(arr) {
+export default function fromArray<T = any>(arr: T[]) : Flow<T> {
     checkIs("Array", isArray(arr));
     checkHas("Iterator", hasOrIsIterator(arr));
 
-    return createFlow(function getIterFromArr() {
-        return getIteratorFromArray(arr);
-    });
+    return createFlow(getIteratorFromArray.bind(null, arr));
 }

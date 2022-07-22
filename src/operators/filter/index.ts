@@ -1,5 +1,5 @@
-export default function filter(predicate) {
-    return function* filterGenerator(iterator) {
+export default function filter<TInput>(predicate: (x: TInput, idx?: number) => boolean): (iterator: Iterable<TInput>) => IterableIterator<TInput> {
+    return function* filterGenerator(iterator: Iterable<TInput>): IterableIterator<TInput> {
         let index = 0;
         for (const val of iterator) {
             const res = predicate(val, index);

@@ -8,6 +8,7 @@ import {
 import {
     createFlow,
 } from "../../orchestrators/multiFlow";
+import { Flow } from "../../types";
 
 function buildPositiveRangeGenerator(start: number, end: number, step: number) {
     return function* positiveRangeGenerator() {
@@ -25,7 +26,7 @@ function buildNegativeRangeGenerator(start: number, end: number, step: number) {
     };
 }
 
-export default function range(start: number, end: number, step = 1) {
+export default function range(start: number, end: number, step = 1) : Flow<number> {
     checkIs("Number", isNumber(start), "start");
     checkIs("Number", isNumber(end), "end");
     checkIs("Number", isNumber(step), "step");

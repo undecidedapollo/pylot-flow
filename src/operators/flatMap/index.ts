@@ -3,18 +3,20 @@ import {
     hasOrIsIterator,
 } from "../../shared";
 
-export type FlatMapPredicate = (val: any, i?: number) => any;
+type SelfArrNested<T> = T | SelfArrNested<T>[];
 
-export default function flatMap(predicate : FlatMapPredicate = NOOP_PASSTHROUGH) {
-    return function* flatMapGenerator(iterator) {
+export type FlatMapPredicate<T, U> = (val: T, i?: number) => SelfArrNested<U>;
+
+export default function flatMap<T, U>(predicate : FlatMapPredicate<T, U> = NOOP_PASSTHROUGH) {
+    return function* flatMapGenerator(iterator: Iterable<T>) : IterableIterator<U> {
         let index = 0;
         for (const val of iterator) {
             const mappedVal = predicate(val, index);
             index += 1;
             if (hasOrIsIterator(mappedVal)) {
-                yield* mappedVal;
+                yield* mappedVal as U[];
             } else {
-                yield mappedVal;
+                yield mappedVal as U;
             }
         }
     };

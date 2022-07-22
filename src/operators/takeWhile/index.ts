@@ -1,5 +1,5 @@
-export default function takeWhile(predicate) {
-    return function* takeWhileGenerator(iterator) {
+export default function takeWhile<T>(predicate: (val: T, index: number) => boolean) {
+    return function* takeWhileGenerator(iterator: Iterable<T>) : IterableIterator<T> {
         let index = -1;
         for (const val of iterator) {
             index += 1;

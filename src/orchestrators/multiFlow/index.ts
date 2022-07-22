@@ -10,8 +10,9 @@ import {
 } from "../../shared";
 
 import * as standardPiper from "../../runtimes/standardPiper";
+import { Flow } from "../../types";
 
-export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
+export function createFlow(getIterFunc, piper = standardPiper.buildPiper) : Flow {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
     checkIs("Function", isFunction(piper), "piper");
 

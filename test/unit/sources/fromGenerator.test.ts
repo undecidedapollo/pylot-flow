@@ -2,26 +2,26 @@ import fromGenerator from "../../../src/sources/fromGenerator/index";
 
 describe("fromGenerator", function () {
     it("should throw if item is undefined", function () {
-        expect(() => fromGenerator(undefined)).toThrow();
+        expect(() => fromGenerator(undefined as any)).toThrow();
     });
 
     it("should throw if item is null", function () {
-        expect(() => fromGenerator(null)).toThrow();
+        expect(() => fromGenerator(null as any)).toThrow();
     });
 
 
     it("should throw if item is number", function () {
-        expect(() => fromGenerator(123)).toThrow();
+        expect(() => fromGenerator(123 as any)).toThrow();
     });
 
 
     it("should throw if item is string", function () {
-        expect(() => fromGenerator("abc")).toThrow();
+        expect(() => fromGenerator("abc" as any)).toThrow();
     });
 
 
     it("should throw if item is boolean", function () {
-        expect(() => fromGenerator(true)).toThrow();
+        expect(() => fromGenerator(true as any)).toThrow();
     });    
 
     it("should return flowObj, return number items unchanged", function () {

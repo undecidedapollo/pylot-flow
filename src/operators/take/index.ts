@@ -1,5 +1,5 @@
-export default function take(takeCount) {
-    return function* takeGenerator(iterator) {
+export default function take(takeCount: number) {
+    return function* takeGenerator<T>(iterator: Iterable<T>) : IterableIterator<T> {
         if (takeCount <= 0) {
             return;
         }

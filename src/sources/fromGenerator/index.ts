@@ -8,8 +8,9 @@ import {
 import {
     createFlow,
 } from "../../orchestrators/multiFlow";
+import { Flow } from "../../types";
 
-export default function fromGenerator(getIterFunc) {
+export default function fromGenerator<T = any>(getIterFunc: () => Iterable<T>) : Flow<T> {
     checkExists(getIterFunc);
     checkIs("Function", isFunction(getIterFunc));
     return createFlow(getIterFunc);

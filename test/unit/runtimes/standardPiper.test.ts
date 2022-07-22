@@ -12,15 +12,15 @@ describe("standardPiper", function () {
         });
 
         it("should throw if getIterFunc is not a function", function () {
-            expect(() => buildPiper(1)).toThrow();
+            expect(() => buildPiper(1 as any)).toThrow();
         });
 
         it("should throw if modifiers is not an array of functions", function () {
-            expect(() => buildPiper(() => { }, 1)).toThrow();
+            expect(() => buildPiper((() => { }) as any, 1)).toThrow();
         });
 
         it("should not throw if modifiers is an empty array", function () {
-            expect(() => buildPiper(() => { })).not.toThrow();
+            expect(() => buildPiper((() => { }) as any)).not.toThrow();
         });
     });
 

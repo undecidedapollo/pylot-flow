@@ -22,7 +22,8 @@
     "generator",
     "lazy",
     "iterator",
-    "functional"
+    "functional",
+    "array"
   ],
   "author": "Jonah Nestrick<undecidedapollo>",
   "license": "ISC",

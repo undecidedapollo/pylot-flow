@@ -2,26 +2,26 @@ import fromArray from "../../../src/sources/fromArray/index";
 
 describe("fromArray", function () {
     it("should throw if item is undefined", function () {
-        expect(() => fromArray(undefined)).toThrow();
+        expect(() => fromArray(undefined as any)).toThrow();
     });
 
     it("should throw if item is null", function () {
-        expect(() => fromArray(null)).toThrow();
+        expect(() => fromArray(null as any)).toThrow();
     });
 
 
     it("should throw if item is number", function () {
-        expect(() => fromArray(123)).toThrow();
+        expect(() => fromArray(123 as any)).toThrow();
     });
 
 
     it("should throw if item is string", function () {
-        expect(() => fromArray("abc")).toThrow();
+        expect(() => fromArray("abc" as any)).toThrow();
     });
 
 
     it("should throw if item is boolean", function () {
-        expect(() => fromArray(true)).toThrow();
+        expect(() => fromArray(true as any)).toThrow();
     });
 
 

@@ -6,7 +6,7 @@ import {
     hasOrIsIterator,
 } from "../../shared";
 
-export function buildPiper(getIterFunc, ...modifiers) {
+export function buildPiper<T = any>(getIterFunc: () => Iterable<T>, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
     checkIs("Array", isArray(modifiers), "modifiers");
 

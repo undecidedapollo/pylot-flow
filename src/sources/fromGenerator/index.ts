@@ -1,8 +1,7 @@
-import * as isFunction from "lodash.isfunction";
-
 import {
     checkExists,
     checkIs,
+    isFunction,
 } from "../../shared";
 
 import {

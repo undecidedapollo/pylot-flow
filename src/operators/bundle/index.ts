@@ -1,10 +1,10 @@
-import * as isInteger from "lodash.isinteger";
+
 import {
     checkIs,
 } from "../../shared";
 
 export default function bundle(bundleAmount) {
-    checkIs("integer", isInteger(bundleAmount), "bundleAmount");
+    checkIs("integer", Number.isSafeInteger(bundleAmount), "bundleAmount");
     checkIs("greater than or equal to 1", bundleAmount >= 1, "bundleAmount");
     return function* bundleGenerator(iterator) {
         let curBundle = [];

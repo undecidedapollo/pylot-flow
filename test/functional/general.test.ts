@@ -26,10 +26,10 @@ describe("general library tests", function () {
             expect(res.length).toBe(resArr.length);
             expect(res.every((x, i) => x === resArr[i])).toBe(true);
 
-            expect(initialStub).toBeCalledTimes(8);
-            expect(preFilterStub).toBeCalledTimes(6);
-            expect(postFilterStub).toBeCalledTimes(3);
-            expect(postMapStub).toBeCalledTimes(3);
+            expect(initialStub).toHaveBeenCalledTimes(8);
+            expect(preFilterStub).toHaveBeenCalledTimes(6);
+            expect(postFilterStub).toHaveBeenCalledTimes(3);
+            expect(postMapStub).toHaveBeenCalledTimes(3);
         });
     });
 
@@ -51,10 +51,10 @@ describe("general library tests", function () {
             expect(res.length).toBe(resArr.length);
             expect(res.every((x, i) => x === resArr[i])).toBe(true);
 
-            expect(initialStub).toBeCalledTimes(8);
-            expect(preFilterStub).toBeCalledTimes(6);
-            expect(postFilterStub).toBeCalledTimes(3);
-            expect(postMapStub).toBeCalledTimes(3);
+            expect(initialStub).toHaveBeenCalledTimes(8);
+            expect(preFilterStub).toHaveBeenCalledTimes(6);
+            expect(postFilterStub).toHaveBeenCalledTimes(3);
+            expect(postMapStub).toHaveBeenCalledTimes(3);
         });
     });
 
@@ -74,10 +74,10 @@ describe("general library tests", function () {
             expect(res.length).toBe(resArr.length);
             expect(res.every((x, i) => x === resArr[i])).toBe(true);
 
-            expect(initialStub).toBeCalledTimes(8);
-            expect(preFilterStub).toBeCalledTimes(6);
-            expect(postFilterStub).toBeCalledTimes(3);
-            expect(postMapStub).toBeCalledTimes(3);
+            expect(initialStub).toHaveBeenCalledTimes(8);
+            expect(preFilterStub).toHaveBeenCalledTimes(6);
+            expect(postFilterStub).toHaveBeenCalledTimes(3);
+            expect(postMapStub).toHaveBeenCalledTimes(3);
         });
     });
 
@@ -99,10 +99,10 @@ describe("general library tests", function () {
             }
 
             expect(i).toBe(resArr.length);
-            expect(initialStub).toBeCalledTimes(8);
-            expect(preFilterStub).toBeCalledTimes(6);
-            expect(postFilterStub).toBeCalledTimes(3);
-            expect(postMapStub).toBeCalledTimes(3);
+            expect(initialStub).toHaveBeenCalledTimes(8);
+            expect(preFilterStub).toHaveBeenCalledTimes(6);
+            expect(postFilterStub).toHaveBeenCalledTimes(3);
+            expect(postMapStub).toHaveBeenCalledTimes(3);
         });
 
         it("should return proper sequence in Array.from", function () {
@@ -119,10 +119,10 @@ describe("general library tests", function () {
             expect(res.length).toBe(resArr.length);
             expect(res.every((x, i) => x === resArr[i])).toBe(true);
 
-            expect(initialStub).toBeCalledTimes(8);
-            expect(preFilterStub).toBeCalledTimes(6);
-            expect(postFilterStub).toBeCalledTimes(3);
-            expect(postMapStub).toBeCalledTimes(3);
+            expect(initialStub).toHaveBeenCalledTimes(8);
+            expect(preFilterStub).toHaveBeenCalledTimes(6);
+            expect(postFilterStub).toHaveBeenCalledTimes(3);
+            expect(postMapStub).toHaveBeenCalledTimes(3);
         });
     });
 });

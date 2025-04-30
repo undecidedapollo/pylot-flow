@@ -1,5 +1,3 @@
-import * as isFunction from "lodash.isfunction";
-
 import filter from "../../operators/filter";
 
 import {
@@ -7,13 +5,35 @@ import {
     checkIs,
     exists,
     hasOrIsIterator,
+    isArray,
+    isFunction,
 } from "../../shared";
 
-import * as standardPiper from "../../runtimes/standardPiper";
-
-export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
+function buildPiper(getIterFunc, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
-    checkIs("Function", isFunction(piper), "piper");
+    checkIs("Array", isArray(modifiers), "modifiers");
+
+    modifiers.forEach(function modifierValidator(modifier, index) {
+        checkIs("Function", isFunction(modifier), `modifier[${index}]`);
+    });
+
+    return function standardPiper() {
+        const initialIter = getIterFunc();
+        checkIs("Iterator", hasOrIsIterator(initialIter));
+
+        return modifiers.reduce(function reduceIterator(prevIterator, currentModifier, index) {
+            checkIs("Function", isFunction(currentModifier), `modifier[${index}]`);
+            const iter = currentModifier(prevIterator);
+            checkIs("Iterator", hasOrIsIterator(iter), "modifier");
+
+            return iter;
+        }, initialIter);
+    };
+}
+
+
+export function createFlow(getIterFunc) {
+    checkIs("Function", isFunction(getIterFunc), "getIterFunc");
 
     function _getExternalIterator() {
         const iter = getIterFunc();
@@ -34,7 +54,7 @@ export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
     }
 
     function pipe(...modifiers) {
-        return createFlow(piper(getIterFunc, ...modifiers), piper);
+        return createFlow(buildPiper(getIterFunc, ...modifiers));
     }
 
     function toArray() {
@@ -85,5 +105,6 @@ export function createFlow(getIterFunc, piper = standardPiper.buildPiper) {
         find,
         firstOrDefault,
         reduce,
+        filter: filter,
     };
 }

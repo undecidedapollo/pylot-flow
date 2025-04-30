@@ -1,5 +1,5 @@
-import * as isArray from "lodash.isarray";
 import flatten from "../../../src/operators/flatten/index";
+import { isArray } from "../../../src/shared";
 
 function isSameArr(arr1, arr2) {
     if(arr1.length !== arr2.length) {

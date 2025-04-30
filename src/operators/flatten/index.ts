@@ -1,12 +1,10 @@
-import * as isInteger from "lodash.isinteger";
-
 import {
     hasOrIsIterator,
     checkIs,
 } from "../../shared";
 
 export default function flatten(maxDepth = Number.POSITIVE_INFINITY) {
-    checkIs("Integer", maxDepth === Number.POSITIVE_INFINITY || isInteger(maxDepth), "maxDepth");
+    checkIs("Integer", maxDepth === Number.POSITIVE_INFINITY || Number.isSafeInteger(maxDepth), "maxDepth");
     checkIs("Greater than or equal to 0", maxDepth >= 0, "maxDepth");
 
     return function* flattenGenerator(iterator, currentDepth = 0) {

@@ -1,5 +1,3 @@
-import * as isArray from "lodash.isarray";
-
 import {
     checkIs,
     checkHas,
@@ -12,7 +10,7 @@ import {
 } from "../../orchestrators/multiFlow";
 
 export default function fromArray(arr) {
-    checkIs("Array", isArray(arr));
+    // checkIs("Array", isArray(arr));
     checkHas("Iterator", hasOrIsIterator(arr));
 
     return createFlow(function getIterFromArr() {

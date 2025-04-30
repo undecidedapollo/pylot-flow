@@ -13,14 +13,11 @@ describe("multiFlow", function () {
             expect(() => createFlow(1)).toThrow();
         });
 
-        it("should throw if piper is not a function", function () {
-            expect(() => createFlow((() => { }) as any, 1 as any)).toThrow();
-        });
 
         it("should return proper object", function () {
-            const res = createFlow((() => { }) as any, (() => { }) as any);
+            const res = createFlow((() => { }) as any);
             expect(res).toBeTruthy();
-            expect(Object.keys(res).length).toBe(7);
+            expect(Object.keys(res).length).toBe(8);
             expect(isFunction(res.getGenerator)).toBe(true);
             expect(isFunction(res.getIterator)).toBe(true);
             expect(isFunction(res.pipe)).toBe(true);
@@ -28,21 +25,22 @@ describe("multiFlow", function () {
             expect(isFunction(res.find)).toBe(true);
             expect(isFunction(res.firstOrDefault)).toBe(true);
             expect(isFunction(res.reduce)).toBe(true);
+            expect(isFunction(res.filter)).toBe(true);
         });
     });
 
     describe("getIterator", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null as any, () => null as any).getIterator()).toThrow();
+            expect(() => createFlow(() => null as any).getIterator()).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any).getIterator()).toThrow();
+            expect(() => createFlow(() => ({})).getIterator()).toThrow();
         });
 
         it("should return proper wrapped iterator object", function () {
             const fakeIter = [1, 2, 3];
-            const res = createFlow(() => fakeIter, (() => { }) as any).getIterator();
+            const res = createFlow(() => fakeIter).getIterator();
             expect(res).toBeTruthy();
             expect(res).not.toBe(fakeIter);
             expect(Array.from(res).every((x, i) => x === fakeIter[i])).toBe(true);
@@ -51,17 +49,17 @@ describe("multiFlow", function () {
 
     describe("getGenerator", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null as any, () => null as any).getGenerator()).toThrow();
+            expect(() => createFlow(() => null as any).getGenerator()).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any).getGenerator()).toThrow();
+            expect(() => createFlow(() => ({})).getGenerator()).toThrow();
         });
 
         it("should return proper generator object", function () {
             const fakeIter = [1, 2, 3];
             const fakeIterFunc = () => fakeIter;
-            const res = createFlow(fakeIterFunc, (() => { }) as any).getGenerator();
+            const res = createFlow(fakeIterFunc).getGenerator();
             expect(res).toBeTruthy();
             expect(isFunction(res)).toBe(true);
             expect(res).not.toBe(fakeIterFunc);
@@ -74,16 +72,16 @@ describe("multiFlow", function () {
 
     describe("toArray", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null as any, () => null as any).toArray()).toThrow();
+            expect(() => createFlow(() => null as any).toArray()).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any).toArray()).toThrow();
+            expect(() => createFlow(() => ({})).toArray()).toThrow();
         });
 
         it("should return proper generator object", function () {
             const fakeIter = [1, 2, 3];
-            const res = createFlow(() => fakeIter, (() => { }) as any).toArray();
+            const res = createFlow(() => fakeIter).toArray();
             expect(res).toBeTruthy();
             expect(Array.isArray(res)).toBe(true);
             expect(res).not.toBe(fakeIter);
@@ -96,17 +94,13 @@ describe("multiFlow", function () {
             const fakeIter = [1, 2, 3];
             const newFakeIterRes = [4, 5, 6];
             const fakePiperResFunc = jest.fn().mockReturnValue(newFakeIterRes);
-            const fakePiper = jest.fn().mockReturnValue(fakePiperResFunc);
-            const originalFlow = createFlow(() => fakeIter, fakePiper);
-            const newFlow = originalFlow.pipe(fakePiper);
-            expect(originalFlow).toBeTruthy();
-            expect(newFlow).toBeTruthy();
+            const originalFlow = createFlow(() => fakeIter);
+            const newFlow = originalFlow.pipe(fakePiperResFunc);
             expect(originalFlow).not.toBe(newFlow);
             const origRes = originalFlow.toArray();
             expect(origRes.every((x, i) => x === fakeIter[i])).toBe(true);
             const newRes = newFlow.toArray();
             expect(newRes.every((x, i) => x === newFakeIterRes[i])).toBe(true);
-            expect(fakePiper.mock.calls.length).toBe(1);
             expect(fakePiperResFunc.mock.calls.length).toBe(1);
         });
 
@@ -130,40 +124,40 @@ describe("multiFlow", function () {
 
     describe("firstOrDefault", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null as any, () => null as any).firstOrDefault()).toThrow();
+            expect(() => createFlow(() => null as any).firstOrDefault()).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any).firstOrDefault()).toThrow();
+            expect(() => createFlow(() => ({})).firstOrDefault()).toThrow();
         });
 
         it("should return first item", function () {
             const fakeIter = [1, 2, 3];
-            const res = createFlow(() => fakeIter, (() => { }) as any).firstOrDefault();
+            const res = createFlow(() => fakeIter).firstOrDefault();
             expect(res).toBeTruthy();
             expect(res).toBe(fakeIter[0]);
         });
 
         it("should return null if doesn't exist", function () {
             const fakeIter = [];
-            const res = createFlow(() => fakeIter, (() => { }) as any).firstOrDefault();
+            const res = createFlow(() => fakeIter).firstOrDefault();
             expect(res).toBe(null);
         });
 
         it("should return default if doesn't exist", function () {
             const fakeIter = [];
-            const res = createFlow(() => fakeIter, (() => { }) as any).firstOrDefault(50 as any);
+            const res = createFlow(() => fakeIter).firstOrDefault(50 as any);
             expect(res).toBe(50);
         });
     });
 
     describe("find", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null as any, () => null as any as any).firstOrDefault()).toThrow();
+            expect(() => createFlow(() => null as any).firstOrDefault()).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any as any).firstOrDefault()).toThrow();
+            expect(() => createFlow(() => ({})).firstOrDefault()).toThrow();
         });
 
         it("should return first matching element", function () {
@@ -181,11 +175,11 @@ describe("multiFlow", function () {
 
     describe("reduce", function () {
         it("should throw if iter function returns null", function () {
-            expect(() => createFlow(() => null, () => null as any).reduce(undefined as any)).toThrow();
+            expect(() => createFlow(() => null).reduce(undefined as any)).toThrow();
         });
 
         it("should throw if iter function returns an object without an iterator", function () {
-            expect(() => createFlow(() => ({}), () => null as any).reduce(undefined as any)).toThrow();
+            expect(() => createFlow(() => ({})).reduce(undefined as any)).toThrow();
         });
 
         it("should throw if initial value is undefined and array is empty", function () {

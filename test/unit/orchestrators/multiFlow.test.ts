@@ -17,18 +17,19 @@ describe("multiFlow", function () {
         it("should return proper object", function () {
             const res = createFlow((() => { }) as any);
             expect(res).toBeTruthy();
-            expect(Object.keys(res).length).toBe(17);
+            expect(Object.keys(res).length).toBe(18);
             expect(isFunction(res.getGenerator)).toBe(true);
             expect(isFunction(res.getIterator)).toBe(true);
             expect(isFunction(res.pipe)).toBe(true);
             expect(isFunction(res.toArray)).toBe(true);
             expect(isFunction(res.find)).toBe(true);
             expect(isFunction(res.firstOrDefault)).toBe(true);
+            expect(isFunction(res.forEach)).toBe(true);
             expect(isFunction(res.reduce)).toBe(true);
             expect(isFunction(res.filter)).toBe(true);
             expect(isFunction(res.bundle)).toBe(true);
             expect(isFunction(res.flatMap)).toBe(true);
-            expect(isFunction(res.flatten)).toBe(true);
+            expect(isFunction(res.flat)).toBe(true);
             expect(isFunction(res.forEach)).toBe(true);
             expect(isFunction(res.map)).toBe(true);
             expect(isFunction(res.skip)).toBe(true);
@@ -223,6 +224,26 @@ describe("multiFlow", function () {
             expect(res).toBeDefined();
             expect(typeof res).toBe("number");
             expect(res).toBe(6);
+        });
+    });
+
+    describe("forEach", function () {
+        it("should throw if iter function returns null", function () {
+            expect(() => createFlow(() => null as any).forEach(() => { })).toThrow();
+        });
+
+        it("should throw if iter function returns an object without an iterator", function () {
+            expect(() => createFlow(() => ({} as any)).forEach(() => { })).toThrow();
+        });
+
+        it("should call predicate for each element", function () {
+            const fakeIter = [1, 2, 3];
+            const predicate = jest.fn();
+            createFlow(() => fakeIter).forEach(predicate);
+            expect(predicate.mock.calls.length).toBe(3);
+            expect(predicate.mock.calls[0][0]).toBe(1);
+            expect(predicate.mock.calls[1][0]).toBe(2);
+            expect(predicate.mock.calls[2][0]).toBe(3);
         });
     });
 });

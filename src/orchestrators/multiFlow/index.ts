@@ -1,8 +1,8 @@
 import bundle from "../../operators/bundle";
 import filter from "../../operators/filter";
 import flatMap from "../../operators/flatMap";
-import flatten from "../../operators/flatten";
-import forEach from "../../operators/forEach";
+import flat from "../../operators/flat";
+import tap from "../../operators/tap";
 import map from "../../operators/map";
 import skip from "../../operators/skip";
 import skipWhile from "../../operators/skipWhile";
@@ -75,6 +75,16 @@ export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
         return pipe(filter(predicate)).firstOrDefault();
     }
 
+    function forEach(predicate: (val: T, idx: number) => void): void {
+        let index = 0;
+        const iter = getIterator();
+
+        for (const val of iter) {
+            predicate(val, index);
+            index += 1;
+        }
+    }
+
     function reduce(predicate, initialValue?) {
         let index = -1;
         let accumulator = initialValue;
@@ -106,6 +116,7 @@ export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
         toArray,
         find,
         firstOrDefault,
+        forEach,
         reduce,
         bundle: function _bundle(bundleAmount: number): Flow<T[]> {
             return pipe(bundle(bundleAmount));
@@ -116,11 +127,11 @@ export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
         flatMap: function _flatMap<TResponse>(predicate): Flow<TResponse> {
             return pipe(flatMap(predicate));
         },
-        flatten: function _flatten(): Flow<any> {
-            return pipe(flatten());
+        flat: function _flat(maxDepth?: number): Flow<any> {
+            return pipe(flat(maxDepth));
         },
-        forEach: function _forEach(predicate): Flow<T> {
-            return pipe(forEach(predicate));
+        tap: function _tap(predicate): Flow<T> {
+            return pipe(tap(predicate));
         },
         map: function _map<TResponse>(predicate): Flow<TResponse> {
             return pipe(map(predicate));

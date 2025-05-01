@@ -1,10 +1,10 @@
 import filter from "../../src/operators/filter";
-import forEach from "../../src/operators/forEach";
 import map from "../../src/operators/map";
 import skip from "../../src/operators/skip";
 import take from "../../src/operators/take";
 
 import * as flow from "../../src";
+import tap from "../../src/operators/tap";
 
 describe("general library tests", function () {
     const origArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -19,9 +19,9 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .fromArray(origArr)
-                    .pipe(forEach(initialStub), skip(2))
-                    .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
-                    .pipe(map(x => x * 2), take(3), forEach(postMapStub))
+                    .pipe(tap(initialStub), skip(2))
+                    .pipe(tap(preFilterStub), filter((x) => x % 2 === 0), tap(postFilterStub))
+                    .pipe(map(x => x * 2), take(3), tap(postMapStub))
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -43,9 +43,9 @@ describe("general library tests", function () {
                     .fromGenerator(function* myGenerator() {
                         yield* origArr;
                     })
-                    .pipe(forEach(initialStub), skip(2))
-                    .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
-                    .pipe(map(x => x * 2), take(3), forEach(postMapStub))
+                    .pipe(tap(initialStub), skip(2))
+                    .pipe(tap(preFilterStub), filter((x) => x % 2 === 0), tap(postFilterStub))
+                    .pipe(map(x => x * 2), take(3), tap(postMapStub))
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -65,9 +65,9 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .range(1, 11, 1)
-                    .pipe(forEach(initialStub), skip(2))
-                    .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
-                    .pipe(map(x => x * 2), take(3), forEach(postMapStub))
+                    .pipe(tap(initialStub), skip(2))
+                    .pipe(tap(preFilterStub), filter((x) => x % 2 === 0), tap(postFilterStub))
+                    .pipe(map(x => x * 2), take(3), tap(postMapStub))
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -87,9 +87,9 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .fromArray(origArr)
-                    .pipe(forEach(initialStub), skip(2))
-                    .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
-                    .pipe(map(x => x * 2), take(3), forEach(postMapStub));
+                    .pipe(tap(initialStub), skip(2))
+                    .pipe(tap(preFilterStub), filter((x) => x % 2 === 0), tap(postFilterStub))
+                    .pipe(map(x => x * 2), take(3), tap(postMapStub));
                 let i = 0;
                 for (const val of res) {
                     expect(val).toBe(resArr[i]);
@@ -110,9 +110,9 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = Array.from(flow
                     .fromArray(origArr)
-                    .pipe(forEach(initialStub), skip(2))
-                    .pipe(forEach(preFilterStub), filter((x) => x % 2 === 0), forEach(postFilterStub))
-                    .pipe(map(x => x * 2), take(3), forEach(postMapStub)));
+                    .pipe(tap(initialStub), skip(2))
+                    .pipe(tap(preFilterStub), filter((x) => x % 2 === 0), tap(postFilterStub))
+                    .pipe(map(x => x * 2), take(3), tap(postMapStub)));
 
                 expect(Array.from(res)).toStrictEqual(resArr);
 
@@ -133,14 +133,14 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .fromArray(origArr)
-                    .forEach(initialStub)
+                    .tap(initialStub)
                     .skip(2)
-                    .forEach(preFilterStub)
+                    .tap(preFilterStub)
                     .filter((x) => x % 2 === 0)
-                    .forEach(postFilterStub)
+                    .tap(postFilterStub)
                     .map(x => x * 2)
                     .take(3)
-                    .forEach(postMapStub)
+                    .tap(postMapStub)
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -162,14 +162,14 @@ describe("general library tests", function () {
                     .fromGenerator(function* myGenerator() {
                         yield* origArr;
                     })
-                    .forEach(initialStub)
+                    .tap(initialStub)
                     .skip(2)
-                    .forEach(preFilterStub)
+                    .tap(preFilterStub)
                     .filter((x) => x % 2 === 0)
-                    .forEach(postFilterStub)
+                    .tap(postFilterStub)
                     .map(x => x * 2)
                     .take(3)
-                    .forEach(postMapStub)
+                    .tap(postMapStub)
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -189,14 +189,14 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .range(1, 11, 1)
-                    .forEach(initialStub)
+                    .tap(initialStub)
                     .skip(2)
-                    .forEach(preFilterStub)
+                    .tap(preFilterStub)
                     .filter((x) => x % 2 === 0)
-                    .forEach(postFilterStub)
+                    .tap(postFilterStub)
                     .map(x => x * 2)
                     .take(3)
-                    .forEach(postMapStub)
+                    .tap(postMapStub)
                     .toArray();
 
                 expect(res).toStrictEqual(resArr);
@@ -216,14 +216,14 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = flow
                     .fromArray(origArr)
-                    .forEach(initialStub)
+                    .tap(initialStub)
                     .skip(2)
-                    .forEach(preFilterStub)
+                    .tap(preFilterStub)
                     .filter((x) => x % 2 === 0)
-                    .forEach(postFilterStub)
+                    .tap(postFilterStub)
                     .map(x => x * 2)
                     .take(3)
-                    .forEach(postMapStub);
+                    .tap(postMapStub);
                 let i = 0;
                 for (const val of res) {
                     expect(val).toBe(resArr[i]);
@@ -244,14 +244,14 @@ describe("general library tests", function () {
                 const postMapStub = jest.fn();
                 const res = Array.from(flow
                     .fromArray(origArr)
-                    .forEach(initialStub)
+                    .tap(initialStub)
                     .skip(2)
-                    .forEach(preFilterStub)
+                    .tap(preFilterStub)
                     .filter((x) => x % 2 === 0)
-                    .forEach(postFilterStub)
+                    .tap(postFilterStub)
                     .map(x => x * 2)
                     .take(3)
-                    .forEach(postMapStub));
+                    .tap(postMapStub));
 
                 expect(Array.from(res)).toStrictEqual(resArr);
 

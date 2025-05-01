@@ -1,21 +1,26 @@
 {
   "name": "@pylot/flow",
-  "version": "1.0.0-rc2",
+  "type": "commonjs",
+  "version": "1.0.0-rc3",
   "description": "A collection of tools for creating lazy sequences.",
-  "main": "index.js",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
   "readme": "README.md",
   "scripts": {
-    "build": "npm run lint; npm run test; npm run tsc",
+    "build": "rm -dr dist; npm run lint; npm run tsc; npm run test; ",
     "lint": "eslint --ext ts src/**",
     "lint:fix": "eslint --fix --ext ts src/**",
     "test": "jest ",
-    "tsc": "tsc",
-    "package": "npm run build; rm -fdr ./package/; mkdir -p ./package/; cp -r dist/ package.json package-lock.json LICENSE README.md .npmignore .gitignore package/"
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
     "url": "https://gitlab.com/pylot-node/packages/flow.git"
   },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
   "keywords": [
     "pylot",
     "flow",

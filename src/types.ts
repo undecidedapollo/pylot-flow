@@ -10,13 +10,14 @@ export interface Flow<T> {
     bundle(bundleAmount: number): Flow<T[]>;
     filter(predicate: (val: T, idx: number) => boolean): Flow<T>;
     flatMap<TResponse>(predicate: (val: T) => Iterable<TResponse | ReadonlyArray<TResponse>>): Flow<TResponse>;
-    flatten(): Flow<Flatten<T>>;
-    forEach(predicate: (val: T, idx: number) => void): Flow<T>;
+    flat(maxDepth?: number): Flow<Flatten<T>>;
+    forEach(predicate: (val: T, idx: number) => void): void;
     map<TResponse>(predicate: (val: T, idx: number) => TResponse): Flow<TResponse>;
     skip(count: number): Flow<T>;
     skipWhile(predicate: (val: T, idx: number) => boolean): Flow<T>;
     take(count: number): Flow<T>;
     takeWhile(predicate: (val: T, idx: number) => boolean): Flow<T>;
+    tap(predicate: (val: T, idx: number) => void): Flow<T>;
 }
 
 export type FlatMapPredicate<T, TResponse> = (val: T, idx: number) => Iterable<TResponse | ReadonlyArray<TResponse>>;
@@ -27,7 +28,7 @@ type Reduce<T> = {
     <U>(callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 };
 
-type Flatten<TSource> =
+export type Flatten<TSource> =
     | (TSource extends Iterable<infer U>
           ? U extends Iterable<infer V>
               ? V extends Iterable<infer W>
@@ -43,7 +44,7 @@ type Flatten<TSource> =
           : TSource)
     | TSource;
 
-type FlowPipe<TSource> = {
+export type FlowPipe<TSource> = {
     <B>(fn1: (src: Iterable<TSource>) => Generator<B>): Flow<B>;
     <B, C>(fn1: (src: Iterable<TSource>) => Generator<B>, fn2: (src: Iterable<B>) => Generator<C>): Flow<C>;
     <B, C, D>(

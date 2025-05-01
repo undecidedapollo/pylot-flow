@@ -1,21 +1,26 @@
 {
   "name": "@pylot/flow",
-  "version": "1.0.0-rc2",
+  "type": "commonjs",
+  "version": "1.0.0-rc4",
   "description": "A collection of tools for creating lazy sequences.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "readme": "README.md",
   "scripts": {
-    "build": "npm run lint; npm run test; npm run tsc",
+    "build": "rm -dr dist; npm run lint; npm run tsc; npm run test; ",
     "lint": "eslint --ext ts src/**",
     "lint:fix": "eslint --fix --ext ts src/**",
-    "test": "jest",
-    "tsc": "tsc",
-    "package": "npm run build; rm -fdr ./package/; mkdir -p ./package/; cp -r dist/ package.json package-lock.json LICENSE README.md .npmignore .gitignore package/"
+    "test": "jest ",
+    "tsc": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/pylot-node/packages/flow.git"
+    "url": "git+https://github.com/undecidedapollo/pylot-flow.git"
   },
+  "files": [
+    "dist",
+    "LICENSE"
+  ],
   "keywords": [
     "pylot",
     "flow",
@@ -26,23 +31,34 @@
   ],
   "author": "Jonah Nestrick<undecidedapollo>",
   "license": "ISC",
-  "dependencies": {
-    "lodash.isarray": "^4.0.0",
-    "lodash.isboolean": "^3.0.3",
-    "lodash.isfunction": "^3.0.9",
-    "lodash.isinteger": "^4.0.4",
-    "lodash.isnumber": "^3.0.3",
-    "lodash.isstring": "^4.0.1",
-    "lodash.issymbol": "^4.0.1"
-  },
   "devDependencies": {
-    "@types/jest": "^28.1.6",
-    "@typescript-eslint/eslint-plugin": "^5.30.7",
-    "@typescript-eslint/parser": "^5.30.7",
-    "eslint": "8.20.0",
-    "jest": "^28.1.3",
+    "@types/jest": "^29.5.14",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "eslint": "9.25.1",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "jest": "^29.7.0",
     "lodash.iserror": "^3.1.1",
-    "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4"
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.3.2",
+    "typescript": "^5.8.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "test",
+    "testRegex": ".*\\.test\\.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
   }
 }

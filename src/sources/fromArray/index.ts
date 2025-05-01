@@ -1,21 +1,12 @@
-import * as isArray from "lodash.isarray";
+import { checkIs, checkHas, hasOrIsIterator, getIteratorFromArray, isArray } from "../../shared";
 
-import {
-    checkIs,
-    checkHas,
-    hasOrIsIterator,
-    getIteratorFromArray,
-} from "../../shared";
+import { createFlow } from "../../orchestrators/multiFlow";
 
-import {
-    createFlow,
-} from "../../orchestrators/multiFlow";
-
-export default function fromArray(arr) {
-    checkIs("Array", isArray(arr));
+export default function fromArray<T>(arr: T[]) {
+    checkIs("Array", isArray(arr), "arr");
     checkHas("Iterator", hasOrIsIterator(arr));
 
-    return createFlow(function getIterFromArr() {
+    return createFlow(function getIterFromArr(): Iterable<T> {
         return getIteratorFromArray(arr);
     });
 }

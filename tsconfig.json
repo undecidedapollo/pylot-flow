@@ -1,14 +1,24 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "target": "ES2019",
-        "outDir": "./dist",
-        "declaration": true,
-    },
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": false,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"allowSyntheticDefaultImports": true,
+		"target": "es2021",
+		"sourceMap": true,
+		"outDir": "./dist",
+		"rootDirs": ["./src"],
+		"incremental": true,
+		"skipLibCheck": true,
+		"strictNullChecks": true,
+		"noImplicitAny": false,
+		"strictBindCallApply": false,
+		"forceConsistentCasingInFileNames": false,
+		"noFallthroughCasesInSwitch": false
+	},
     "include": [
         "src/**/*.ts"
-    ],
-    "exclude": [
-        "node_modules"
     ],
 }

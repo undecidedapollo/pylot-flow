@@ -1,14 +1,16 @@
-import * as isNumber from "lodash.isnumber";
-import * as isString from "lodash.isstring";
-import * as isBoolean from "lodash.isboolean";
-import * as isSymbol from "lodash.issymbol";
-export * as isFunction from "lodash.isfunction";
-
-export const NOOP = (x?: any) => { /* NOOP */ }; // eslint-disable-line @typescript-eslint/no-unused-vars
+export const NOOP = (_?: any) => {
+    /* NOOP */
+};
 export const NOOP_PASSTHROUGH = (x) => x;
 
 export const exists = (x) => x !== null && x !== undefined;
+export const isNumber = (x) => typeof x === "number";
+export const isString = (x) => typeof x === "string";
+export const isBoolean = (x) => typeof x === "boolean";
+export const isSymbol = (x) => typeof x === "symbol";
 export const isPrimitive = (x) => !exists(x) || isNumber(x) || isString(x) || isBoolean(x) || isSymbol(x);
+export const isFunction = (x) => typeof x === "function";
+export const isArray = (x) => Array.isArray(x);
 
 export function checkExists(x, msg = "Expected object to exist") {
     if (!exists(x)) {
@@ -33,7 +35,7 @@ export function hasOrIsIterator(iter) {
         return false;
     }
 
-    if ((Symbol.iterator in iter)) {
+    if (Symbol.iterator in iter) {
         return true;
     }
 

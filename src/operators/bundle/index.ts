@@ -1,13 +1,10 @@
-import * as isInteger from "lodash.isinteger";
-import {
-    checkIs,
-} from "../../shared";
+import { checkIs } from "../../shared";
 
-export default function bundle(bundleAmount) {
-    checkIs("integer", isInteger(bundleAmount), "bundleAmount");
+export default function bundle(bundleAmount: number) {
+    checkIs("integer", Number.isSafeInteger(bundleAmount), "bundleAmount");
     checkIs("greater than or equal to 1", bundleAmount >= 1, "bundleAmount");
-    return function* bundleGenerator(iterator) {
-        let curBundle = [];
+    return function* bundleGenerator<TSource>(iterator: Iterable<TSource>): Generator<TSource[], void, void> {
+        let curBundle: TSource[] = [];
         for (const val of iterator) {
             curBundle.push(val);
             if (curBundle.length >= bundleAmount) {

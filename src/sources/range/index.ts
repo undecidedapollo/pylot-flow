@@ -1,13 +1,6 @@
-import * as isNumber from "lodash.isnumber";
-import * as isInteger from "lodash.isinteger";
+import { checkIs } from "../../shared";
 
-import {
-    checkIs,
-} from "../../shared";
-
-import {
-    createFlow,
-} from "../../orchestrators/multiFlow";
+import { createFlow } from "../../orchestrators/multiFlow";
 
 function buildPositiveRangeGenerator(start: number, end: number, step: number) {
     return function* positiveRangeGenerator() {
@@ -25,13 +18,10 @@ function buildNegativeRangeGenerator(start: number, end: number, step: number) {
     };
 }
 
-export default function range(start: number, end: number, step = 1) {
-    checkIs("Number", isNumber(start), "start");
-    checkIs("Number", isNumber(end), "end");
-    checkIs("Number", isNumber(step), "step");
-    checkIs("Integer", isInteger(start), "start");
-    checkIs("Integer", isInteger(end), "end");
-    checkIs("Integer", isInteger(step), "step");
+export default function range(start: number, end: number, step: number = 1) {
+    checkIs("Integer", Number.isSafeInteger(start), "start");
+    checkIs("Integer", Number.isSafeInteger(end), "end");
+    checkIs("Integer", Number.isSafeInteger(step), "step");
     checkIs("Number greater than or less than zero", step !== 0, "step");
 
     const negative = step < 0;

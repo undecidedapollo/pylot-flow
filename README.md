@@ -54,11 +54,9 @@ For example, if I wanted to get the first valid value after a set of transformat
 
 ```typescript
 //Find first number when multiplied by two that is greater than 10.
-
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
 
 //Using array methods, wastes compute cycles calculating all values when you just want the first.
-
 const res = data.filter((num) => num * 2 > 10); //Returns arr of length 7. [6, 7, 8, 9, 10, 11, 12]
 const val = res[0]; //6
 ```
@@ -69,11 +67,9 @@ To save on compute cycles you could use a for loop and break early. The issue is
 
 ```typescript
 //Find first number when multiplied by two that is greater than 10.
-
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
 
 //Using array methods, wastes compute cycles calculating all values when you just want the first.
-
 function getFirstGreaterThan10(arr) {
     for(const num of arr) {
         if(num * 2 > 10) {
@@ -229,7 +225,7 @@ const newFlowObj = flow([1, 2, 3, 4, 5, 6])
   .filter(num => isEven(num))
   .map(num => num * 2);
 
-// To get all values as an array (not recommended, evaluates all operations immediately)
+// To get all values as an array
 const resultArray = newFlowObj.toArray();
 console.log(resultArray); // Outputs: [4, 8, 12]
 
@@ -269,7 +265,7 @@ const newFlowObj = flow.fromGenerator(myGenerator)
   .filter(num => isEven(num))
   .map((num) => num * 2);
 
-//To get all values as an array (not recommended, evaluates all operations immediately)
+//To get all values as an array
 const resultArray = newFlowObj.toArray();
 console.log(resultArray); //Outputs: [4, 8, 12]
 
@@ -297,7 +293,7 @@ const newFlowObj = flow
   .filter((num: number) => isEven(num))
   .map((num: number) => num * 2);
 
-//To get all values as an array (not recommended, evaluates all operations immediately)
+//To get all values as an array
 const resultArray = newFlowObj.toArray();
 console.log(resultArray); //Outputs: [4, 8, 12]
 

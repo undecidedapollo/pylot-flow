@@ -20,7 +20,40 @@ export interface Flow<T> {
     tap(predicate: (val: T, idx: number) => void): Flow<T>;
 }
 
-export interface AsyncFlow<T> {
+export interface InternalAsyncFlow<T> {
+    [Symbol.asyncIterator]: () => AsyncGenerator<T, void, void>;
+    getIterator(): AsyncIterable<T>;
+    getGenerator(): () => AsyncGenerator<T, void, void>;
+    pipe: AsyncFlowPipe<T>;
+    toArray(): Promise<T[]>;
+    find(predicate: (val: T) => Promise<boolean> | boolean): Promise<T | null>;
+    firstOrDefault(defaultVal?: T | null): Promise<T | null>;
+    forEach(predicate: (val: T, idx: number) => void): void;
+    reduce: AsyncReduce<T>;
+    // bundle(bundleAmount: number): Flow<T[]>;
+    filter(predicate: (val: T, idx: number) => boolean): AsyncFlow<T>;
+    flatMap<TResponse>(predicate: AsyncFlatMapPredicate<T, TResponse>): AsyncFlow<TResponse>;
+    // flat(maxDepth?: number): Flow<Flatten<T>>;
+    map<TResponse>(predicate: (val: T, idx: number) => TResponse): AsyncFlow<TResponse>;
+    splitMerge(delimiter: string): AsyncFlow<string>;
+    pipeToWritable(writable: WritableLike): Promise<void>;
+    // skip(count: number): Flow<T>;
+    // skipWhile(predicate: (val: T, idx: number) => boolean): Flow<T>;
+    // take(count: number): Flow<T>;
+    // takeWhile(predicate: (val: T, idx: number) => boolean): Flow<T>;
+    // tap(predicate: (val: T, idx: number) => void): Flow<T>;
+}
+
+export interface WritableLike {
+    write(chunk: string): boolean;
+    end(): void;
+    on(event: "drain", listener: () => void): this;
+    on(event: "error", listener: (err: Error) => void): this;
+    removeListener(event: "drain", listener: () => void): this;
+    removeListener(event: "error", listener: (err: Error) => void): this;
+}
+
+export interface BaseAsyncFlow<T> {
     [Symbol.asyncIterator]: () => AsyncGenerator<T, void, void>;
     getIterator(): AsyncIterable<T>;
     getGenerator(): () => AsyncGenerator<T, void, void>;
@@ -42,6 +75,13 @@ export interface AsyncFlow<T> {
     // tap(predicate: (val: T, idx: number) => void): Flow<T>;
 }
 
+export interface StringOnlyMethods {
+    splitMerge(delimiter: string): AsyncFlow<string>;
+    pipeToWritable(writable: WritableLike): Promise<void>;
+}
+
+export type AsyncFlow<T> = BaseAsyncFlow<T> & (T extends string ? StringOnlyMethods : void);
+
 export type AsyncCompatIter<T> = AsyncIterable<T> | Iterable<T>;
 export type PromiseOrValue<T> = Promise<T> | T;
 
@@ -50,14 +90,6 @@ export type AsyncFlatMapPredicate<T, TResponse> = (
     val: T,
     idx: number,
 ) => PromiseOrValue<AsyncCompatIter<TResponse | ReadonlyArray<TResponse>>>;
-
-type Data<T> = {done: false, val: T} | {done: true, val: undefined};
-
-export type AsyncTransducerPredicate<T, TResponse, TState> = (
-    state: TState,
-    data: Data<T>,
-    idx: number,
-) => PromiseOrValue<{ result: AsyncCompatIter<TResponse | ReadonlyArray<TResponse>>; state: TState }>;
 
 type Reduce<T> = {
     (callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T): Promise<T>;
@@ -150,31 +182,31 @@ export type FlowPipe<TSource> = {
 };
 
 export type AsyncFlowPipe<TSource> = {
-    <B>(fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>): AsyncFlow<B>;
+    <B>(fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>): AsyncFlow<B>;
     <B, C>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
     ): AsyncFlow<C>;
     <B, C, D>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
     ): AsyncFlow<D>;
     <B, C, D, E>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
         fn4: (src: Iterable<D>) => AsyncGenerator<E>,
     ): AsyncFlow<E>;
     <B, C, D, E, F>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
         fn4: (src: Iterable<D>) => AsyncGenerator<E>,
         fn5: (src: Iterable<E>) => AsyncGenerator<F>,
     ): AsyncFlow<F>;
     <B, C, D, E, F, G>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
         fn4: (src: Iterable<D>) => AsyncGenerator<E>,
@@ -182,7 +214,7 @@ export type AsyncFlowPipe<TSource> = {
         fn6: (src: Iterable<F>) => AsyncGenerator<G>,
     ): AsyncFlow<G>;
     <B, C, D, E, F, G, H>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
         fn4: (src: Iterable<D>) => AsyncGenerator<E>,
@@ -191,7 +223,7 @@ export type AsyncFlowPipe<TSource> = {
         fn7: (src: Iterable<G>) => AsyncGenerator<H>,
     ): AsyncFlow<H>;
     <B, C, D, E, F, G, H, I>(
-        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B>,
+        fn1: (src: AsyncIterable<TSource> | Iterable<TSource>) => AsyncGenerator<B, void, void>,
         fn2: (src: Iterable<B>) => AsyncGenerator<C>,
         fn3: (src: Iterable<C>) => AsyncGenerator<D>,
         fn4: (src: Iterable<D>) => AsyncGenerator<E>,

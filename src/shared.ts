@@ -54,7 +54,18 @@ export function hasOrIsAsyncIterator(iter) {
     return false;
 }
 
-export function getIteratorFromArray(iter) {
+export function getIterator(iter) {
+    if (Symbol.iterator in iter) {
+        return iter[Symbol.iterator]();
+    }
+
+    throw new Error("Unable to find iterator on array");
+}
+
+export function getAsyncIterator(iter) {
+    if (Symbol.asyncIterator in iter) {
+        return iter[Symbol.asyncIterator]();
+    }
     if (Symbol.iterator in iter) {
         return iter[Symbol.iterator]();
     }

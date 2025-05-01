@@ -1,12 +1,11 @@
-import { checkIs, checkHas, hasOrIsIterator, getIteratorFromArray, isArray } from "../../shared";
+import { checkHas, hasOrIsIterator, getIterator } from "../../shared";
 
 import { createFlow } from "../../orchestrators/sync";
 
-export default function fromArray<T>(arr: T[]) {
-    checkIs("Array", isArray(arr), "arr");
+export default function fromArray<T>(arr: Iterable<T>) {
     checkHas("Iterator", hasOrIsIterator(arr));
 
     return createFlow(function getIterFromArr(): Iterable<T> {
-        return getIteratorFromArray(arr);
+        return getIterator(arr);
     });
 }

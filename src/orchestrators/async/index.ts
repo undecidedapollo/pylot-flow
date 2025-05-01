@@ -3,7 +3,7 @@ import flatMap from "../../asyncOperators/flatMap";
 import map from "../../asyncOperators/map";
 
 import { checkExists, checkIs, exists, hasOrIsAsyncIterator, hasOrIsIterator, isArray, isFunction } from "../../shared";
-import { AsyncFlow, AsyncFlowPipe } from "../../types";
+import { AsyncFlow, AsyncFlowPipe, InternalAsyncFlow, WritableLike } from "../../types";
 
 function buildPiper(getIterFunc, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
@@ -103,7 +103,16 @@ export function createAsyncFlow<T>(getIterFunc: () => AsyncIterable<T> | Iterabl
         return accumulator;
     }
 
-    return {
+    async function pipeToWritable(writable: WritableLike): Promise<void> {
+        for await (const chunk of getIterator() as AsyncIterable<string>) {
+            if (!writable.write(chunk)) {
+                await onceDrain(writable);
+            }
+        }
+        writable.end();
+    }
+
+    const internal: InternalAsyncFlow<T> = {
         [Symbol.asyncIterator]: getIterator,
         getIterator,
         getGenerator,
@@ -112,6 +121,9 @@ export function createAsyncFlow<T>(getIterFunc: () => AsyncIterable<T> | Iterabl
         find,
         firstOrDefault,
         forEach,
+        splitMerge: function _splitMerge(delimiter: string): AsyncFlow<string> {
+            return (pipe as AsyncFlowPipe<string>)(splitMerge(delimiter));
+        },
         reduce: reduce as any,
         filter: function _filter(predicate): AsyncFlow<T> {
             return pipe(filter(predicate));
@@ -122,5 +134,50 @@ export function createAsyncFlow<T>(getIterFunc: () => AsyncIterable<T> | Iterabl
         flatMap: function _flatMap<TResponse>(predicate): AsyncFlow<TResponse> {
             return pipe(flatMap(predicate));
         },
+        pipeToWritable,
+    };
+
+    // TODO: This is done to define custom types for certain datatypes (strings). If there is a better way to do this we should change it.
+    return internal as unknown as AsyncFlow<T>;
+}
+
+function onceDrain(writable: WritableLike): Promise<void> {
+    return new Promise((resolve, reject) => {
+        const onDrain = () => {
+            cleanup();
+            resolve();
+        };
+        const onError = (err: Error) => {
+            cleanup();
+            reject(err);
+        };
+        const cleanup = () => {
+            writable.removeListener?.("drain", onDrain);
+            writable.removeListener?.("error", onError);
+        };
+
+        writable.on("drain", onDrain);
+        writable.on?.("error", onError); // Optional chaining for compatibility
+    });
+}
+
+function splitMerge(delimiter: string) {
+    return async function* split(
+        iterator: AsyncIterable<string> | Iterable<string>,
+    ): AsyncGenerator<string, void, void> {
+        let buffer = "";
+        for await (const val of iterator) {
+            const splitLines = val.split(delimiter);
+            for (let i = 0; i < splitLines.length - 1; i++) {
+                yield buffer + splitLines[i];
+                buffer = "";
+            }
+            buffer += splitLines[splitLines.length - 1];
+        }
+
+        if (buffer.length > 0) {
+            yield buffer;
+        }
+        return;
     };
 }

@@ -8,7 +8,6 @@ export default function takeWhile<T>(predicate: (val: any, index: number) => boo
 
             if (!result) {
                 return;
-
             }
 
             yield val;

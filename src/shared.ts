@@ -1,4 +1,6 @@
-export const NOOP = (x?: any) => { /* NOOP */ }; // eslint-disable-line @typescript-eslint/no-unused-vars
+export const NOOP = (_?: any) => {
+    /* NOOP */
+};
 export const NOOP_PASSTHROUGH = (x) => x;
 
 export const exists = (x) => x !== null && x !== undefined;
@@ -33,7 +35,7 @@ export function hasOrIsIterator(iter) {
         return false;
     }
 
-    if ((Symbol.iterator in iter)) {
+    if (Symbol.iterator in iter) {
         return true;
     }
 

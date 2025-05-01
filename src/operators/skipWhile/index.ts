@@ -4,7 +4,7 @@ export default function skipWhile<T>(predicate: (val: T, index: number) => boole
         let index = -1;
         for (const val of iterator as Iterable<any>) {
             index += 1;
-            const predicateResponse: boolean = predicateReturnedFalse || !(predicate(val, index));
+            const predicateResponse: boolean = predicateReturnedFalse || !predicate(val, index);
 
             if (predicateResponse) {
                 predicateReturnedFalse = true;

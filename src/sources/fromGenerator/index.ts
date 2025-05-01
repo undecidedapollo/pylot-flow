@@ -1,12 +1,6 @@
-import {
-    checkExists,
-    checkIs,
-    isFunction,
-} from "../../shared";
+import { checkExists, checkIs, isFunction } from "../../shared";
 
-import {
-    createFlow,
-} from "../../orchestrators/multiFlow";
+import { createFlow } from "../../orchestrators/multiFlow";
 
 export default function fromGenerator<T>(getIterFunc: () => Iterable<T>) {
     checkExists(getIterFunc);

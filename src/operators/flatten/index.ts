@@ -1,7 +1,4 @@
-import {
-    hasOrIsIterator,
-    checkIs,
-} from "../../shared";
+import { hasOrIsIterator, checkIs } from "../../shared";
 import { Flatten } from "../../types";
 
 export default function flatten(maxDepth: number = 1) {

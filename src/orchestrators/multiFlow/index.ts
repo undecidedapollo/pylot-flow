@@ -9,14 +9,7 @@ import skipWhile from "../../operators/skipWhile";
 import take from "../../operators/take";
 import takeWhile from "../../operators/takeWhile";
 
-import {
-    checkExists,
-    checkIs,
-    exists,
-    hasOrIsIterator,
-    isArray,
-    isFunction,
-} from "../../shared";
+import { checkExists, checkIs, exists, hasOrIsIterator, isArray, isFunction } from "../../shared";
 import { Flow, FlowPipe } from "../../types";
 
 function buildPiper(getIterFunc, ...modifiers) {
@@ -41,7 +34,6 @@ function buildPiper(getIterFunc, ...modifiers) {
     };
 }
 
-
 export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
 
@@ -65,7 +57,7 @@ export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
 
     const pipe: FlowPipe<T> = function pipe(...modifiers) {
         return createFlow(buildPiper(getIterFunc, ...modifiers));
-    }
+    };
 
     function toArray() {
         return Array.from(getIterator());

@@ -5,7 +5,6 @@ export default function forEach<T>(predicate: (val: T, idx: number) => void) {
             predicate(val, index);
             index += 1;
             yield val;
-
         }
     };
 }

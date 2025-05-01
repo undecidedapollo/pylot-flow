@@ -1,10 +1,6 @@
-import {
-    checkIs,
-} from "../../shared";
+import { checkIs } from "../../shared";
 
-import {
-    createFlow,
-} from "../../orchestrators/multiFlow";
+import { createFlow } from "../../orchestrators/multiFlow";
 
 function buildPositiveRangeGenerator(start: number, end: number, step: number) {
     return function* positiveRangeGenerator() {

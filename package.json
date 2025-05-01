@@ -1,7 +1,7 @@
 {
   "name": "@pylot/flow",
   "type": "commonjs",
-  "version": "1.0.0-rc3",
+  "version": "1.0.0-rc4",
   "description": "A collection of tools for creating lazy sequences.",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",

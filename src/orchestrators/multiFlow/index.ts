@@ -1,4 +1,13 @@
+import bundle from "../../operators/bundle";
 import filter from "../../operators/filter";
+import flatMap from "../../operators/flatMap";
+import flatten from "../../operators/flatten";
+import forEach from "../../operators/forEach";
+import map from "../../operators/map";
+import skip from "../../operators/skip";
+import skipWhile from "../../operators/skipWhile";
+import take from "../../operators/take";
+import takeWhile from "../../operators/takeWhile";
 
 import {
     checkExists,
@@ -8,6 +17,7 @@ import {
     isArray,
     isFunction,
 } from "../../shared";
+import { Flow, FlowPipe } from "../../types";
 
 function buildPiper(getIterFunc, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
@@ -32,7 +42,7 @@ function buildPiper(getIterFunc, ...modifiers) {
 }
 
 
-export function createFlow(getIterFunc) {
+export function createFlow<T>(getIterFunc: () => Iterable<T>): Flow<T> {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");
 
     function _getExternalIterator() {
@@ -42,18 +52,18 @@ export function createFlow(getIterFunc) {
         return iter;
     }
 
-    function getGenerator() {
+    function getGenerator(): () => Generator<T, void, void> {
         const iter = _getExternalIterator();
-        return function* fakeGenerator() {
+        return function* fakeGenerator(): Generator<T, void, void> {
             yield* iter;
         };
     }
 
-    function getIterator() {
+    function getIterator(): Generator<T, void, void> {
         return getGenerator()();
     }
 
-    function pipe(...modifiers) {
+    const pipe: FlowPipe<T> = function pipe(...modifiers) {
         return createFlow(buildPiper(getIterFunc, ...modifiers));
     }
 
@@ -69,7 +79,7 @@ export function createFlow(getIterFunc) {
         return defaultVal;
     }
 
-    function find(predicate) {
+    function find(predicate: (val: T) => boolean): T | null {
         return pipe(filter(predicate)).firstOrDefault();
     }
 
@@ -105,6 +115,35 @@ export function createFlow(getIterFunc) {
         find,
         firstOrDefault,
         reduce,
-        filter: filter,
+        bundle: function _bundle(bundleAmount: number): Flow<T[]> {
+            return pipe(bundle(bundleAmount));
+        },
+        filter: function _filter(predicate): Flow<T> {
+            return pipe(filter(predicate));
+        },
+        flatMap: function _flatMap<TResponse>(predicate): Flow<TResponse> {
+            return pipe(flatMap(predicate));
+        },
+        flatten: function _flatten(): Flow<any> {
+            return pipe(flatten());
+        },
+        forEach: function _forEach(predicate): Flow<T> {
+            return pipe(forEach(predicate));
+        },
+        map: function _map<TResponse>(predicate): Flow<TResponse> {
+            return pipe(map(predicate));
+        },
+        skip: function _skip(count: number): Flow<T> {
+            return pipe(skip(count));
+        },
+        skipWhile: function _skipWhile(predicate): Flow<T> {
+            return pipe(skipWhile(predicate));
+        },
+        take: function _take(count: number): Flow<T> {
+            return pipe(take(count));
+        },
+        takeWhile: function _takeWhile(predicate): Flow<T> {
+            return pipe(takeWhile(predicate));
+        },
     };
 }

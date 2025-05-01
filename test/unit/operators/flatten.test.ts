@@ -15,6 +15,7 @@ describe("flatten", function () {
     const boolsNestedArr = [[true, [false, true]], false, [[[true]], true], false, false];
     const boolsNestedArrFullFlattenRes = [true, false, true, false, true, true, false, false];
     const boolsNestedArrDepthTwoRes = [true, false, true, false, [true], true, false, false];
+    const boolsNestedArrDepthOneRes = [true,  [false, true], false, [[true]], true, false, false];
     const numArr = [1, [2, 3], 4, [5, 6, 7], 8];
     const numResArr = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -28,21 +29,28 @@ describe("flatten", function () {
 
     it("should return boolsArr flattened", function () {
         const res = Array.from(flatten()(boolsArr));
-        expect(isSameArr(res, boolsResArr)).toBe(true);
+        expect(res).toEqual(boolsResArr);
+
     });
 
     it("should return boolsNestedArr flattened", function () {
         const res = Array.from(flatten()(boolsNestedArr));
-        expect(isSameArr(res, boolsNestedArrFullFlattenRes)).toBe(true);
+        expect(res).toEqual(boolsNestedArrDepthOneRes);
     });
 
     it("should return boolsNestedArr flattened, depth 2", function () {
         const res = Array.from(flatten(2)(boolsNestedArr));
-        expect(isSameArr(res, boolsNestedArrDepthTwoRes)).toBe(true);
+        expect(res).toEqual(boolsNestedArrDepthTwoRes);
+
+    });
+
+    it("should return boolsNestedArr flattened", function () {
+        const res = Array.from(flatten(10)(boolsNestedArr));
+        expect(res).toEqual(boolsNestedArrFullFlattenRes);
     });
 
     it("should return number items", function () {
         const res = Array.from(flatten()(numArr));
-        expect(isSameArr(res, numResArr)).toBe(true);
+        expect(res).toEqual(numResArr);
     });
 });

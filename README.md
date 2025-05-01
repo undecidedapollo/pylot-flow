@@ -490,8 +490,8 @@ Skips the first (numToSkip) number of elements from the sequence, returns the re
 ```typescript
 import flow from "@pylot/flow";
 
-const result = flow([1, 2, 3]).skip(2).toArray();
-// result = [3]
+const result = flow([1, 2, 3, 4, 5]).skip(2).toArray();
+// result = [3, 4, 5]
 ```
 
 
@@ -510,8 +510,8 @@ Skips elements from the sequence until the predicate returns falsey.
 ```typescript
 import flow from "@pylot/flow";
 
-const result = flow([1, 2, 3]).skipWhile((num) => num < 3).toArray();
-// result = [3]
+const result = flow([1, 2, 3, 4, 5]).skipWhile((num) => num < 3).toArray();
+// result = [3, 4, 5]
 ```
 
 

@@ -1,6 +1,6 @@
 import { checkIs, checkHas, hasOrIsIterator, getIteratorFromArray, isArray } from "../../shared";
 
-import { createFlow } from "../../orchestrators/multiFlow";
+import { createFlow } from "../../orchestrators/sync";
 
 export default function fromArray<T>(arr: T[]) {
     checkIs("Array", isArray(arr), "arr");

@@ -1,6 +1,6 @@
 import {
     createFlow,
-} from "../../../src/orchestrators/multiFlow/index";
+} from "../../../src/orchestrators/sync/index";
 
 import {
     hasOrIsIterator,

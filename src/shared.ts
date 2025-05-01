@@ -42,6 +42,18 @@ export function hasOrIsIterator(iter) {
     return false;
 }
 
+export function hasOrIsAsyncIterator(iter) {
+    if (isPrimitive(iter)) {
+        return false;
+    }
+
+    if (Symbol.asyncIterator in iter) {
+        return true;
+    }
+
+    return false;
+}
+
 export function getIteratorFromArray(iter) {
     if (Symbol.iterator in iter) {
         return iter[Symbol.iterator]();

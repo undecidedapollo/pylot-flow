@@ -1,9 +1,9 @@
-import filter from "../../asyncOperators/filter";
-import flatMap from "../../asyncOperators/flatMap";
-import map from "../../asyncOperators/map";
+import filter from "#asyncOperators/filter/index.js";
+import flatMap from "#asyncOperators/flatMap/index.js";
+import map from "#asyncOperators/map/index.js";
 
-import { checkExists, checkIs, exists, hasOrIsAsyncIterator, hasOrIsIterator, isArray, isFunction } from "../../shared";
-import { AsyncFlow, AsyncFlowPipe, InternalAsyncFlow, WritableLike } from "../../types";
+import { checkExists, checkIs, exists, hasOrIsAsyncIterator, hasOrIsIterator, isArray, isFunction } from "#shared.js";
+import { AsyncFlow, AsyncFlowPipe, InternalAsyncFlow, WritableLike } from "#types.js";
 
 function buildPiper(getIterFunc, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");

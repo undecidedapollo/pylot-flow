@@ -1,6 +1,6 @@
-import { checkHas, hasOrIsIterator, hasOrIsAsyncIterator, getAsyncIterator } from "../../shared";
+import { checkHas, hasOrIsIterator, hasOrIsAsyncIterator, getAsyncIterator } from "#shared.js";
 
-import { createAsyncFlow } from "../../orchestrators/async";
+import { createAsyncFlow } from "#orchestrators/async/index.js";
 
 export default function fromAsyncIterable<T>(arr: AsyncIterable<T> | Iterable<T>) {
     checkHas("Iterator", hasOrIsAsyncIterator(arr) || hasOrIsIterator(arr));

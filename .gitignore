@@ -9,3 +9,4 @@ build/
 .nyc/
 dist/
 package/
+*.tsbuildinfo

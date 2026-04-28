@@ -1,5 +1,5 @@
-import { NOOP_PASSTHROUGH, hasOrIsIterator } from "../../shared";
-import { FlatMapPredicate } from "../../types";
+import { NOOP_PASSTHROUGH, hasOrIsIterator } from "#shared.js";
+import { FlatMapPredicate } from "#types.js";
 
 export default function flatMap<T, TResponse>(predicate: FlatMapPredicate<T, TResponse> = NOOP_PASSTHROUGH) {
     return function* flatMapGenerator(iterator): Generator<TResponse, void, void> {

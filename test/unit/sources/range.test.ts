@@ -1,4 +1,4 @@
-import range from "../../../src/sources/range/index";
+import range from "#sources/range/index.js";
 
 describe("range", function () {
     it("should throw if start is not a number", function () {

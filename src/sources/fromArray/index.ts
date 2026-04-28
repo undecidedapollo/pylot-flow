@@ -1,6 +1,6 @@
-import { checkHas, hasOrIsIterator, getIterator } from "../../shared";
+import { checkHas, hasOrIsIterator, getIterator } from "#shared.js";
 
-import { createFlow } from "../../orchestrators/sync";
+import { createFlow } from "#orchestrators/sync/index.js";
 
 export default function fromArray<T>(arr: Iterable<T>) {
     checkHas("Iterator", hasOrIsIterator(arr));

@@ -1,4 +1,4 @@
-import bundle from "../../../src/operators/bundle/index";
+import bundle from "#operators/bundle/index.js";
 
 describe("bundle", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];

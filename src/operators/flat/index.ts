@@ -1,5 +1,5 @@
-import { hasOrIsIterator, checkIs } from "../../shared";
-import { Flatten } from "../../types";
+import { hasOrIsIterator, checkIs } from "#shared.js";
+import { Flatten } from "#types.js";
 
 export default function flat(maxDepth: number = 1) {
     checkIs("Integer", maxDepth === Number.POSITIVE_INFINITY || Number.isSafeInteger(maxDepth), "maxDepth");

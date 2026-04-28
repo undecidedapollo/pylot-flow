@@ -1,16 +1,16 @@
-import bundle from "../../operators/bundle";
-import filter from "../../operators/filter";
-import flatMap from "../../operators/flatMap";
-import flat from "../../operators/flat";
-import tap from "../../operators/tap";
-import map from "../../operators/map";
-import skip from "../../operators/skip";
-import skipWhile from "../../operators/skipWhile";
-import take from "../../operators/take";
-import takeWhile from "../../operators/takeWhile";
+import bundle from "#operators/bundle/index.js";
+import filter from "#operators/filter/index.js";
+import flatMap from "#operators/flatMap/index.js";
+import flat from "#operators/flat/index.js";
+import tap from "#operators/tap/index.js";
+import map from "#operators/map/index.js";
+import skip from "#operators/skip/index.js";
+import skipWhile from "#operators/skipWhile/index.js";
+import take from "#operators/take/index.js";
+import takeWhile from "#operators/takeWhile/index.js";
 
-import { checkExists, checkIs, exists, hasOrIsIterator, isArray, isFunction } from "../../shared";
-import { Flow, FlowPipe } from "../../types";
+import { checkExists, checkIs, exists, hasOrIsIterator, isArray, isFunction } from "#shared.js";
+import { Flow, FlowPipe } from "#types.js";
 
 function buildPiper(getIterFunc, ...modifiers) {
     checkIs("Function", isFunction(getIterFunc), "getIterFunc");

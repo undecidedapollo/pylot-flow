@@ -1,6 +1,6 @@
-import { checkExists, checkIs, isFunction } from "../../shared";
+import { checkExists, checkIs, isFunction } from "#shared.js";
 
-import { createFlow } from "../../orchestrators/sync";
+import { createFlow } from "#orchestrators/sync/index.js";
 
 export default function fromGenerator<T>(getIterFunc: () => Iterable<T>) {
     checkExists(getIterFunc);

@@ -1,11 +1,12 @@
+import { jest } from "@jest/globals";
 import {
     createFlow,
-} from "../../../src/orchestrators/sync/index";
+} from "#orchestrators/sync/index.js";
 
 import {
     hasOrIsIterator,
     isFunction,
-} from "../../../src/shared";
+} from "#shared.js";
 
 describe("multiFlow", function () {
     describe("creation", function () {
@@ -103,7 +104,7 @@ describe("multiFlow", function () {
         it("should return a new flow obj, custom piper, return proper values", function () {
             const fakeIter = [1, 2, 3];
             const newFakeIterRes = [4, 5, 6];
-            const fakePiperResFunc = jest.fn().mockReturnValue(newFakeIterRes);
+            const fakePiperResFunc = jest.fn<(src: Iterable<number>) => Generator<number>>().mockReturnValue(newFakeIterRes as unknown as Generator<number>);
             const originalFlow = createFlow(() => fakeIter);
             const newFlow = originalFlow.pipe(fakePiperResFunc);
             expect(originalFlow).not.toBe(newFlow);
@@ -238,7 +239,7 @@ describe("multiFlow", function () {
 
         it("should call predicate for each element", function () {
             const fakeIter = [1, 2, 3];
-            const predicate = jest.fn();
+            const predicate = jest.fn<(val: number, idx: number) => void>();
             createFlow(() => fakeIter).forEach(predicate);
             expect(predicate.mock.calls.length).toBe(3);
             expect(predicate.mock.calls[0][0]).toBe(1);

@@ -1,5 +1,5 @@
-import { NOOP_PASSTHROUGH, hasOrIsAsyncIterator, hasOrIsIterator } from "../../shared";
-import { AsyncFlatMapPredicate } from "../../types";
+import { NOOP_PASSTHROUGH, hasOrIsAsyncIterator, hasOrIsIterator } from "#shared.js";
+import { AsyncFlatMapPredicate } from "#types.js";
 
 export default function flatMap<T, TResponse>(predicate: AsyncFlatMapPredicate<T, TResponse> = NOOP_PASSTHROUGH) {
     return async function* flatMapGenerator(

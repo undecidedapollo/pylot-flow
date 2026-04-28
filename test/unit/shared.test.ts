@@ -6,11 +6,9 @@ import {
     checkIs,
     exists,
     isPrimitive,
-    getIteratorFromArray,
+    getIterator,
     hasOrIsIterator,
-} from "../../src/shared";
-
-// Convert all chai assert calls to jest expect calls
+} from "#shared.js";
 
 describe("shared", function () {
     describe("NOOP", function() {
@@ -100,7 +98,7 @@ describe("shared", function () {
 
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe("Expected object to exist");
+                expect((ex as Error).message).toBe("Expected object to exist");
                 return;
             }
 
@@ -113,7 +111,7 @@ describe("shared", function () {
 
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe("Expected object to exist");
+                expect((ex as Error).message).toBe("Expected object to exist");
                 return;
             }
 
@@ -128,7 +126,7 @@ describe("shared", function () {
 
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -165,7 +163,7 @@ describe("shared", function () {
                 checkHas(type, false);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -180,7 +178,7 @@ describe("shared", function () {
                 checkHas(type, false, objName);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -195,7 +193,7 @@ describe("shared", function () {
                 checkHas(type, false, objName, msg);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -231,7 +229,7 @@ describe("shared", function () {
                 checkIs(type, false);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -246,7 +244,7 @@ describe("shared", function () {
                 checkIs(type, false, objName);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -261,7 +259,7 @@ describe("shared", function () {
                 checkIs(type, false, objName, msg);
             } catch (ex) {
                 expect(ex).toBeInstanceOf(Error);
-                expect(ex.message).toBe(msg);
+                expect((ex as Error).message).toBe(msg);
                 return;
             }
 
@@ -323,10 +321,10 @@ describe("shared", function () {
         });
     });
 
-    describe("getIteratorFromArray", function () {
+    describe("getIterator", function () {
         it("should return iterator for array", function () {
             const arr = [1, 2, 3];
-            const iter = getIteratorFromArray(arr);
+            const iter = getIterator(arr);
             expect(arr).not.toBe(iter);
             const iterArr = Array.from(iter);
             expect(arr.length).toBe(iterArr.length);
@@ -334,7 +332,7 @@ describe("shared", function () {
         });
 
         it("should throw if iterator field not on obj.", function () {
-            expect(() => getIteratorFromArray({})).toThrow();
+            expect(() => getIterator({})).toThrow();
         });
     });
 });

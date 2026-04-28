@@ -1,4 +1,6 @@
-import flatMap from "../../../src/operators/flatMap/index";
+import { jest } from "@jest/globals";
+import flatMap from "#operators/flatMap/index.js";
+import type { FlatMapPredicate } from "#types.js";
 
 describe("flatMap", () => {
     const boolsArr = [[true, false, true], false, [true, true], false, false];
@@ -19,16 +21,16 @@ describe("flatMap", () => {
     });
 
     it("should return boolean items, call stub", () => {
-        const stub = jest.fn((x) => x);
-        const res = Array.from(flatMap(stub)(boolsArr));
+        const stub = jest.fn((x: boolean | boolean[]) => x);
+        const res = Array.from(flatMap(stub as unknown as FlatMapPredicate<boolean | boolean[], boolean>)(boolsArr));
         expect(stub).toHaveBeenCalledTimes(5);
         expect(res.length).toBe(8);
         expect(res.every((x, i) => x === boolsResArr[i])).toBe(true);
     });
 
     it("should return number items, call stub", () => {
-        const stub = jest.fn((x) => x);
-        const res = Array.from(flatMap(stub)(numArr));
+        const stub = jest.fn((x: number | number[]) => x);
+        const res = Array.from(flatMap(stub as unknown as FlatMapPredicate<number | number[], number>)(numArr));
         expect(stub).toHaveBeenCalledTimes(5);
         expect(res.length).toBe(8);
         expect(res.every((x, i) => x === numResArr[i])).toBe(true);

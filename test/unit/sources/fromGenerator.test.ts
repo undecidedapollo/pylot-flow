@@ -1,4 +1,4 @@
-import fromGenerator from "../../../src/sources/fromGenerator/index";
+import fromGenerator from "#sources/fromGenerator/index.js";
 
 describe("fromGenerator", function () {
     it("should throw if item is undefined", function () {

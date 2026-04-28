@@ -1,4 +1,4 @@
-import { checkIs } from "../../shared";
+import { checkIs } from "#shared.js";
 
 export default function bundle(bundleAmount: number) {
     checkIs("integer", Number.isSafeInteger(bundleAmount), "bundleAmount");

@@ -69,7 +69,7 @@ To save on compute cycles you could use a for loop and break early. The issue is
 //Find first number when multiplied by two that is greater than 10.
 const data = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 , 12];
 
-//Using array methods, wastes compute cycles calculating all values when you just want the first.
+// Use imperative, explicit for loop to exit early
 function getFirstGreaterThan10(arr) {
     for(const num of arr) {
         if(num * 2 > 10) {

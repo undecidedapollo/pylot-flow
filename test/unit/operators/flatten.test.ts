@@ -1,5 +1,5 @@
-import flat from "../../../src/operators/flat/index";
-import { isArray } from "../../../src/shared";
+import flat from "#operators/flat/index.js";
+import { isArray } from "#shared.js";
 
 function isSameArr(arr1, arr2) {
     if(arr1.length !== arr2.length) {

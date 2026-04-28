@@ -1,11 +1,12 @@
-import skipWhile from "../../../src/operators/skipWhile/index";
+import { jest } from "@jest/globals";
+import skipWhile from "#operators/skipWhile/index.js";
 
 describe("skipWhile", function () {
     const boolsArr = [true, false, true, false, true, true, false, false];
     const numArr = [1, 2, 3, 4, 5, 6, 7, 8];
 
     it("should only return boolean items until condition is false", function () {
-        const stub = jest.fn()
+        const stub = jest.fn<(val: unknown, index: number) => boolean>()
             .mockReturnValueOnce(true)
             .mockReturnValueOnce(true)
             .mockReturnValueOnce(true)
@@ -18,7 +19,7 @@ describe("skipWhile", function () {
     });
 
     it("should only return number items until condition is false", function () {
-        const stub = jest.fn()
+        const stub = jest.fn<(val: unknown, index: number) => boolean>()
             .mockReturnValueOnce(true)
             .mockReturnValueOnce(true)
             .mockReturnValueOnce(true)

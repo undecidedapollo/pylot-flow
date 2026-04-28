@@ -1,6 +1,6 @@
-import { checkIs } from "../../shared";
+import { checkIs } from "#shared.js";
 
-import { createFlow } from "../../orchestrators/sync";
+import { createFlow } from "#orchestrators/sync/index.js";
 
 function buildPositiveRangeGenerator(start: number, end: number, step: number) {
     return function* positiveRangeGenerator() {

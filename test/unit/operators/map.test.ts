@@ -1,11 +1,12 @@
-import map from "../../../src/operators/map";
+import { jest } from "@jest/globals";
+import map from "#operators/map/index.js";
 
 describe("map", () => {
     const boolsArr = [true, false, true, false, true, true, false, false];
     const numArr = [1, 2, 3, 4, 5, 6, 7, 8];
 
     it("should return boolean items inverted", () => {
-        const stub = jest.fn((x) => !x);
+        const stub = jest.fn((x: boolean) => !x);
         const res = Array.from(map(stub)(boolsArr));
         expect(stub).toHaveBeenCalledTimes(8);
         expect(res.length).toBe(8);
@@ -13,7 +14,7 @@ describe("map", () => {
     });
 
     it("should return number items multiplied by two", () => {
-        const stub = jest.fn((x) => x * 2);
+        const stub = jest.fn((x: number) => x * 2);
         const res = Array.from(map(stub)(numArr));
         expect(stub).toHaveBeenCalledTimes(8);
         expect(res.length).toBe(8);

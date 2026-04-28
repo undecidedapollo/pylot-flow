@@ -1,4 +1,4 @@
-import take from "../../../src/operators/take";
+import take from "#operators/take/index.js";
 
 describe("take", () => {
     const boolsArr = [true, false, true, false, true, true, false, false];

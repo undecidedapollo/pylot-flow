@@ -1,4 +1,4 @@
-import fromArray from "../../../src/sources/fromArray/index";
+import fromArray from "#sources/fromArray/index.js";
 
 describe("fromArray", function () {
     it("should throw if item is undefined", function () {

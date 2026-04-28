@@ -1,10 +1,11 @@
-import filter from "../../src/operators/filter";
-import map from "../../src/operators/map";
-import skip from "../../src/operators/skip";
-import take from "../../src/operators/take";
+import { jest } from "@jest/globals";
+import filter from "#operators/filter/index.js";
+import map from "#operators/map/index.js";
+import skip from "#operators/skip/index.js";
+import take from "#operators/take/index.js";
 
-import * as flow from "../../src";
-import tap from "../../src/operators/tap";
+import * as flow from "#index.js";
+import tap from "#operators/tap/index.js";
 
 describe("general library tests", function () {
     const origArr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
@@ -13,10 +14,10 @@ describe("general library tests", function () {
     describe("explicit pipe", function () {
         describe("fromArray", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromArray(origArr)
                     .pipe(tap(initialStub), skip(2))
@@ -35,10 +36,10 @@ describe("general library tests", function () {
 
         describe("fromGenerator", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromGenerator(function* myGenerator() {
                         yield* origArr;
@@ -59,10 +60,10 @@ describe("general library tests", function () {
 
         describe("range", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .range(1, 11, 1)
                     .pipe(tap(initialStub), skip(2))
@@ -81,10 +82,10 @@ describe("general library tests", function () {
 
         describe("Symbol.iterator", function () {
             it("should return proper sequence in for loop", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromArray(origArr)
                     .pipe(tap(initialStub), skip(2))
@@ -104,10 +105,10 @@ describe("general library tests", function () {
             });
 
             it("should return proper sequence in Array.from", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = Array.from(flow
                     .fromArray(origArr)
                     .pipe(tap(initialStub), skip(2))
@@ -127,10 +128,10 @@ describe("general library tests", function () {
     describe("interior pipe", function () {
         describe("fromArray", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromArray(origArr)
                     .tap(initialStub)
@@ -154,10 +155,10 @@ describe("general library tests", function () {
 
         describe("fromGenerator", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromGenerator(function* myGenerator() {
                         yield* origArr;
@@ -183,10 +184,10 @@ describe("general library tests", function () {
 
         describe("range", function () {
             it("should return proper sequence", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .range(1, 11, 1)
                     .tap(initialStub)
@@ -210,10 +211,10 @@ describe("general library tests", function () {
 
         describe("Symbol.iterator", function () {
             it("should return proper sequence in for loop", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = flow
                     .fromArray(origArr)
                     .tap(initialStub)
@@ -238,10 +239,10 @@ describe("general library tests", function () {
             });
 
             it("should return proper sequence in Array.from", function () {
-                const initialStub = jest.fn();
-                const preFilterStub = jest.fn();
-                const postFilterStub = jest.fn();
-                const postMapStub = jest.fn();
+                const initialStub = jest.fn<(val: number, idx: number) => void>();
+                const preFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postFilterStub = jest.fn<(val: number, idx: number) => void>();
+                const postMapStub = jest.fn<(val: number, idx: number) => void>();
                 const res = Array.from(flow
                     .fromArray(origArr)
                     .tap(initialStub)

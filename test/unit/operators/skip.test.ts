@@ -1,4 +1,4 @@
-import skip from "../../../src/operators/skip/index";
+import skip from "#operators/skip/index.js";
 
 describe("skip", () => {
   const boolsArr = [true, false, true, false, true, true, false, false];
